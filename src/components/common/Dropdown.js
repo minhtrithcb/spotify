@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import useOutsite from '../hooks/useOutsite'
+import useOutsite from '../../hooks/useOutsite'
 
 const Dropdown = ({ title, children, styleBtn, styleDropdown }) => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -13,7 +13,7 @@ const Dropdown = ({ title, children, styleBtn, styleDropdown }) => {
 			<button
 				type='button'
 				onClick={() => setIsOpen((prev) => !prev)}
-				className={styleBtn}
+				className={`z-10 ${styleBtn}`}
 			>
 				{title || 'Title'}
 			</button>
@@ -25,7 +25,7 @@ const Dropdown = ({ title, children, styleBtn, styleDropdown }) => {
 				nodeRef={menuRef}
 			>
 				<div
-					className={`bg-gray-700  absolute right-0 top-12 min-w-[200px]
+					className={`bg-gray-700 z-20  absolute right-0 top-14 min-w-[200px]
                     cursor-pointer p-2 rounded-md shadow-xl ${styleDropdown}`}
 					ref={menuRef}
 				>

@@ -1,5 +1,6 @@
 import React from 'react'
-import { FaPlay } from 'react-icons/fa'
+import TitleBar from '../common/TitleBar'
+import AlbumItem from './AlbumItem'
 const Home = () => {
 	const List1 = [
 		{
@@ -39,35 +40,11 @@ const Home = () => {
 		},
 	]
 	return (
-		<div>
-			<ul className='grid grid-cols-5 gap-4'>
+		<div className='h-auto w-full'>
+			<TitleBar />
+			<ul className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4'>
 				{List1.map((album) => (
-					<li
-						key={album.id}
-						className='h-[200px] bg-slate-700 text-white rounded-md p-2 
-                        hover:bg-slate-600 duration-300 cursor-pointer relative group 
-                    '
-					>
-						<div
-							className='h-[130px] rounded-md w-full 
-                            shadow-md bg-gradient-to-r from-green-500 to-teal-500'
-						></div>
-						<p className='font-bold mt-2'>{album.album}</p>
-						{album.artists.map((a) => a)}
-
-						<span
-							onContextMenu={(e) => {
-								e.preventDefault()
-							}}
-							className='absolute w-10 h-10 bg-green-500 flex items-center justify-center
-                            rounded-full right-4 duration-300 bottom-16 opacity-0 text-black
-                            group-hover:opacity-100
-                            group-hover:bottom-20'
-						>
-							<FaPlay />
-						</span>
-						<span>text</span>
-					</li>
+					<AlbumItem data={album} key={album.id} />
 				))}
 			</ul>
 		</div>

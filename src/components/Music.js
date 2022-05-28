@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
 	BsArrowLeft,
 	BsFillPlayFill,
@@ -18,33 +18,36 @@ const Music = () => {
 	const [isPlay, setIsPlay] = useState(false)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
-	const Data = [
-		{
-			id: 1,
-			title: 'This Far',
-			artist: 'Raven & Kreyn ft. Nino Lucarelli',
-			src: audio1,
-		},
-		{
-			id: 2,
-			title: 'Shadows',
-			artist: 'Nightcore',
-			src: audio2,
-		},
-		{
-			id: 3,
-			title: 'I Like It Song',
-			artist: 'Cardi B',
-			src: audio3,
-		},
-	]
+	const Data = useMemo(
+		() => [
+			{
+				id: 1,
+				title: 'This Far',
+				artist: 'Raven & Kreyn ft. Nino Lucarelli',
+				src: audio1,
+			},
+			{
+				id: 2,
+				title: 'Shadows',
+				artist: 'Nightcore',
+				src: audio2,
+			},
+			{
+				id: 3,
+				title: 'I Like It Song',
+				artist: 'Cardi B',
+				src: audio3,
+			},
+		],
+		[]
+	)
 
 	useEffect(() => {
 		const setupfirstSong = () => {
 			setUpSong(Data[0])
 		}
 		setupfirstSong()
-	}, [])
+	}, [Data])
 
 	// Set current song
 	const setUpSong = (music) => {

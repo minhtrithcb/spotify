@@ -2,13 +2,13 @@
 
 ### Mô tả
 
-Dự án Quiz viết bằng reactjs, tailwindcss
+Dự án Spotify viết bằng reactjs, tailwindcss
 
 ### Cài đặt
 
 Từ trang github copy
 
-> git clone https://github.com/minhtrithcb/quiz
+> git clone https://github.com/minhtrithcb/spotify
 
 Chuyển đến thư mục chính chạy
 
