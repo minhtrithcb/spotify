@@ -2,7 +2,13 @@ import React, { useRef, useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import useOutsite from '../../hooks/useOutsite'
 
-const Dropdown = ({ title, children, styleBtn, styleDropdown }) => {
+const Dropdown = ({
+	title,
+	children,
+	styleBtn,
+	styleDropdown,
+	positionDown,
+}) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const menuRef = useRef(null)
@@ -25,7 +31,8 @@ const Dropdown = ({ title, children, styleBtn, styleDropdown }) => {
 				nodeRef={menuRef}
 			>
 				<div
-					className={`bg-gray-700 z-20  absolute right-0 top-14 min-w-[200px]
+					className={`bg-gray-700 z-20  absolute right-0 
+					${positionDown ? 'bottom-0' : 'top-14'} min-w-[200px]
                     cursor-pointer p-2 rounded-md shadow-xl ${styleDropdown}`}
 					ref={menuRef}
 				>

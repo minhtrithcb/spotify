@@ -7,8 +7,8 @@ const NavBar = () => {
 	const navi = useNavigate()
 	return (
 		<div
-			className='bg-gray-800 text-white flex justify-between py-4 px-4
-			fixed top-0 right-0 w-full md:w-[calc(100%_-_320px)] z-50 h-20 items-center'
+			className='bg-gray-800 text-white flex justify-between py-4 px-4 
+			fixed top-0 right-0 w-full lg:w-[calc(100%_-_320px)] z-50 h-20 items-center'
 		>
 			<div className='flex '>
 				<span
@@ -25,8 +25,8 @@ const NavBar = () => {
 				</span>
 			</div>
 
-			<div className='flex justify-between'>
-				<button className='px-6 mr-4 h-10 rounded-3xl border border-white'>
+			<div className='flex justify-between items-center'>
+				<button className='text-sm px-2 sm:px-6 mr-4 h-8 sm:h-10 rounded-3xl border border-white'>
 					Upgrade
 				</button>
 				<Dropdown

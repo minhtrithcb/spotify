@@ -1,7 +1,7 @@
 import React from 'react'
 import { BsSearch, BsPlusSquare, BsHeart } from 'react-icons/bs'
 import { IoBookmarksOutline, IoHomeOutline } from 'react-icons/io5'
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../../assets/images/logo128.png'
 const SideBar = () => {
 	const MenuLink = [
@@ -44,10 +44,10 @@ const SideBar = () => {
 
 	return (
 		<div
-			className='w-full h-20  md:w-80 md:h-screen bg-gray-800  text-white fixed 
+			className='w-full h-20 lg:w-80 lg:h-screen bg-gray-800  text-white fixed 
 			bottom-0 border-gray-700 border-r border-t z-10'
 		>
-			<div className='p-8 md:flex items-center hidden'>
+			<div className='p-8 lg:flex items-center hidden'>
 				<img src={logo} alt='logo_icon' className='w-10 mr-4' />
 				<Link
 					to='/'
@@ -57,7 +57,7 @@ const SideBar = () => {
 				</Link>
 			</div>
 			{/* // Mobile view  */}
-			<ul className='flex md:hidden w-full h-full justify-between items-center px-4'>
+			<ul className='flex lg:hidden w-full h-full justify-between items-center px-4'>
 				{MenuLink.map((Item) => (
 					<div key={Item.id}>
 						<Link to={`${Item.path}`} title={Item.text}>
@@ -77,7 +77,7 @@ const SideBar = () => {
 				))}
 			</ul>
 			{/* // Desktop view  */}
-			<ul className='p-4 md:block hidden'>
+			<ul className='p-4 lg:block hidden'>
 				{MenuLink.map((Item, index) => (
 					<div key={Item.id}>
 						<Link to={`${Item.path}`} title={Item.text}>

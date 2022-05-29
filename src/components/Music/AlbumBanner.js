@@ -3,7 +3,7 @@ import React from 'react'
 const AlbumBanner = () => {
 	return (
 		<div className='w-full flex items-center h-[200px] md:h-[300px] bg-gradient-to-r from-green-500 to-teal-500 rounded-lg'>
-			<div className='hidden lg:block w-[200px] h-[200px] bg-gradient-to-r from-green-700 to-teal-700 shadow-xl mx-4 rounded-lg'></div>
+			<div className='hidden sm:block w-[100px] md:w-[150px] h-[100px] md:h-[150px] bg-gradient-to-r from-green-700 to-teal-700 shadow-xl mx-4 rounded-lg'></div>
 			<div className='px-4 lg:px-0'>
 				<p className='uppercase tracking-[5px] text-xs'>
 					Public playlist

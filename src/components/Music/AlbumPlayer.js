@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { FaPlay, FaRegHeart } from 'react-icons/fa'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { BsDownload, BsSearch } from 'react-icons/bs'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
+import useOutsite from '../../hooks/useOutsite'
 
 const AlbumPlayer = () => {
+	const [isOpenSearch, setIsOpenSearch] = useState(false)
+	const inputRef = useRef(null)
+	useOutsite(inputRef, () => setIsOpenSearch(false))
+
 	return (
-		<div className='sticky mt-2 top-0 h-14 bg-slate-800 flex items-center justify-between px-0 z-50 md:px-4'>
+		<div className='sticky mt-2 top-0 h-14 bg-slate-800 flex items-center justify-between px-0 z-30 md:px-4'>
 			<div className='flex'>
 				<span
 					className='w-10 h-10 bg-green-500 flex items-center justify-center
@@ -28,13 +33,28 @@ const AlbumPlayer = () => {
 				</span>
 			</div>
 
-			<div className='flex items-center'>
-				<div className='relative text-black mr-4'>
-					<BsSearch className='text-white absolute top-3 left-3 ' />
+			<div className='flex items-center '>
+				<div
+					className={`relative text-black mr-4 transition-all ${
+						!isOpenSearch ? 'w-10' : 'w-52'
+					} `}
+				>
+					<div
+						className='text-white flex items-center justify-center 
+						absolute top-0 left-0 cursor-pointer bg-transparent h-10 w-10'
+						onClick={() => {
+							inputRef.current.focus()
+							setIsOpenSearch((prev) => !prev)
+						}}
+					>
+						<BsSearch />
+					</div>
 					<input
 						type='text'
+						ref={inputRef}
 						placeholder='Search playlist'
-						className='w-full h-10 pl-10 duration-300 outline-none bg-slate-600 rounded'
+						className={`pl-10 h-10 duration-300 outline-none transition-all
+						bg-slate-600 rounded text-white ${isOpenSearch ? 'w-full' : 'w-[0%] '}`}
 					/>
 				</div>
 				<Dropdown

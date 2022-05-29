@@ -16,16 +16,15 @@ const AlbumList = () => {
 			<table className='table-fixed w-full '>
 				<thead className='border-b border-b-gray-700 my-4'>
 					<tr className='text-left uppercase py-4'>
-						<th className='w-12 text-center'>#</th>
-						<th className='py-4 sm:w-1/3'>Song</th>
-						<th className='w-0 sm:w-1/6 opacity-0 sm:opacity-100'>
+						<th className='w-10 text-center'>#</th>
+						<th className='py-4 sm:w-2/5'>Song</th>
+						<th className='w-0 sm:w-[calc(40%_-_40px)] opacity-0 sm:opacity-100'>
 							Album
 						</th>
-						<th className='w-0 sm:w-1/6 opacity-0 sm:opacity-100'>
-							Date
+						<th className='w-1/5 sm:w-[calc(40%_-_40px)] pr-4 sm:pr-0'>
+							Time
 						</th>
-						<th className='w-1/6  pr-4 sm:pr-0'>Time</th>
-						<th className='w-12'>
+						<th className='w-10 pr-4'>
 							<div className='w-full flex justify-center'>
 								<BsFillGearFill />
 							</div>
@@ -34,7 +33,7 @@ const AlbumList = () => {
 				</thead>
 				<tbody className='h-4'></tbody>
 				<tbody>
-					{[1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1].map((i, j) => (
+					{[1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 7].map((i, j) => (
 						<tr
 							className='cursor-pointer duration-300 hover:bg-slate-700'
 							key={j}
@@ -42,7 +41,7 @@ const AlbumList = () => {
 							<td className='w-12 text-center rounded-l-lg'>1</td>
 							<td className='py-4'>
 								<div className='flex items-center'>
-									<div className='hidden md:block mr-2 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
+									<div className='hidden rounded lg:block mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
 									<div>
 										<p className='whitespace-nxowrap '>
 											The Sliding Mr. Bones
@@ -54,25 +53,23 @@ const AlbumList = () => {
 							<td className='opacity-0 sm:opacity-100 '>
 								Malcolm Lockyer
 							</td>
-							<td className='opacity-0 sm:opacity-100 '>
-								1 hours
-							</td>
 							<td>3:20</td>
 
-							<td className='w-12 rounded-r-lg text-right sm:text-left pr-4 sm:pr-0'>
+							<td className='w-12 rounded-r-lg text-right sm:text-left pr-4'>
 								<div className='w-full flex justify-center'>
 									<Dropdown
+										positionDown={i === 7 ? true : false}
 										title={
 											<div className='w-8 h-8 flex justify-center items-center hover:bg-slate-600 duration-300 rounded-full'>
 												<BsThreeDotsVertical />
 											</div>
 										}
 									>
-										<DropdownItem>Title</DropdownItem>
-										<DropdownItem>Artist</DropdownItem>
-										<DropdownItem>Album</DropdownItem>
-										<DropdownItem>Date added</DropdownItem>
-										<DropdownItem>Duration</DropdownItem>
+										<DropdownItem>
+											Add to playlist
+										</DropdownItem>
+
+										<DropdownItem>Share</DropdownItem>
 									</Dropdown>
 								</div>
 							</td>
