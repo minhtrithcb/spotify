@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import MusicLayout from './layout/MusicLayout'
-import Music from './components/Music'
 import Search from './components/Search'
 import Home from './components/Music/Home'
 import Album from './components/Music/Album'
@@ -12,7 +11,6 @@ function App() {
 				<Route element={<MusicLayout />}>
 					<Route path='/' element={<Home />} />
 					<Route path='/search' element={<Search />} />
-					<Route path='/music' element={<Music />} />
 					<Route path='/album/:id' element={<Album />} />
 				</Route>
 

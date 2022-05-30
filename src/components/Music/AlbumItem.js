@@ -2,13 +2,19 @@ import React from 'react'
 import { FaPlay } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
-const AlbumItem = ({ data: { id, artists, album } }) => {
+const AlbumItem = ({ data: { id, artists, album, thumbnail } }) => {
 	return (
 		<li
-			className='h-[200px] bg-slate-700 text-white rounded-md p-2 
+			className='h-[210px] bg-slate-700 text-white rounded-md p-2 
             hover:bg-slate-600 duration-300 cursor-pointer relative group '
 		>
-			<div className='h-[130px] rounded-md w-full shadow-md bg-gradient-to-r from-green-500 to-teal-500'></div>
+			<div className='h-[130px] overflow-hidden rounded-md w-full shadow-md bg-gradient-to-r from-green-500 to-teal-500'>
+				<img
+					src={thumbnail}
+					className='w-full h-full object-cover'
+					alt='thumbnail'
+				/>
+			</div>
 			<Link to={`/album/${id}`} className='font-bold mt-2 block'>
 				{album}
 			</Link>
@@ -27,7 +33,7 @@ const AlbumItem = ({ data: { id, artists, album } }) => {
 					<FaPlay />
 				</span>
 			</Link>
-			<span>text</span>
+			<span></span>
 		</li>
 	)
 }

@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { BsFillPlayFill, BsFillPauseFill, BsHeart } from 'react-icons/bs'
+import {
+	BsFillPlayFill,
+	BsFillPauseFill,
+	BsHeart,
+	BsShuffle,
+} from 'react-icons/bs'
 import {
 	MdSkipNext,
 	MdSkipPrevious,
 	MdOutlineRepeat,
-	MdAllInclusive,
 	MdVolumeUp,
 } from 'react-icons/md'
-import audio1 from '../../assets/mp3/Raven & Kreyn ft. Nino Lucarelli - This Far (RudeLies Remix).mp3'
-import audio2 from '../../assets/mp3/Nightcore - Shadows - (Lyrics).mp3'
-import audio3 from '../../assets/mp3/Sing 2 _ I Like It Song Cardi B (Lyrics) _ Sing 2.mp3'
+import { useSelector } from 'react-redux'
 const MusicPlayer = () => {
 	const progessBarRef = useRef(null)
 	const audioRef = useRef(null)
@@ -19,44 +21,29 @@ const MusicPlayer = () => {
 	const [isPlay, setIsPlay] = useState(false)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
+	const { playList, indexMusic } = useSelector((state) => state.music)
 
 	const Data = useMemo(
-		() => [
-			{
-				id: 1,
-				title: 'This Far',
-				artist: 'Raven & Kreyn ft. Nino Lucarelli',
-				src: audio1,
-			},
-			{
-				id: 2,
-				title: 'Shadows',
-				artist: 'Nightcore',
-				src: audio2,
-			},
-			{
-				id: 3,
-				title: 'I Like It Song',
-				artist: 'Cardi B',
-				src: audio3,
-			},
-		],
-		[]
+		() => (playList.length !== 0 ? [...playList?.playList] : []),
+		[playList]
 	)
 
 	useEffect(() => {
 		const setupfirstSong = () => {
-			setUpSong(Data[0])
+			if (playList.length !== 0) {
+				setUpSong(Data[indexMusic])
+				forcePlay()
+			}
 		}
 		setupfirstSong()
-	}, [Data])
+	}, [Data, indexMusic, playList.length])
 
 	// Set current song
 	const setUpSong = (music) => {
-		if (audioRef.current) {
+		if (audioRef.current && music) {
 			audioRef.current.src = music.src
 			setTitle(music.title)
-			setArtist(music.artist)
+			setArtist(music.artists)
 		}
 	}
 
@@ -66,7 +53,8 @@ const MusicPlayer = () => {
 		!isPlay ? audioRef.current.play() : audioRef.current.pause()
 	}
 
-	const playedSong = () => {
+	// Only play
+	const forcePlay = () => {
 		setIsPlay(true)
 		audioRef.current.play()
 	}
@@ -120,7 +108,7 @@ const MusicPlayer = () => {
 			setIndexSong((prev) => prev - 1)
 			setUpSong(Data[indexSong - 1])
 		}
-		playedSong()
+		forcePlay()
 	}
 
 	// Next song
@@ -133,7 +121,7 @@ const MusicPlayer = () => {
 			setIndexSong((prev) => prev + 1)
 			setUpSong(Data[indexSong + 1])
 		}
-		playedSong()
+		forcePlay()
 	}
 
 	// On audio run
@@ -151,7 +139,7 @@ const MusicPlayer = () => {
 	// On audio ended
 	const handleEnded = () => {
 		handleNext()
-		playedSong()
+		forcePlay()
 	}
 
 	// On change Input
@@ -161,10 +149,16 @@ const MusicPlayer = () => {
 		audioRef.current.currentTime = currentValue
 	}
 
+	const handleChageVolume = (e) => {
+		audioRef.current.volume = e.target.value / 100
+	}
+
 	return (
 		<div
-			className='fixed text-white bg-gray-800  border-gray-700 border-t w-full h-28 bottom-20 
-            lg:bottom-0 left-0 z-50 grid grid-cols-3 px-4 grid-rows-2 gap-2 py-2'
+			className={`${
+				playList.length !== 0 ? 'grid' : 'hidden'
+			} fixed text-white bg-gray-800  border-gray-700 border-t w-full h-28 bottom-20 
+            lg:bottom-0 left-0 z-50 grid-cols-3 px-4 grid-rows-2 gap-2 py-2 `}
 		>
 			<audio
 				ref={audioRef}
@@ -177,7 +171,7 @@ const MusicPlayer = () => {
 					<div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
 					<div>
 						<p className='text-sm md:text-base'>{title}</p>
-						<p className='text-sm md:text-base'>{artist}</p>
+						<p className='text-xs md:text-sm'>{artist}</p>
 					</div>
 				</div>
 			</div>
@@ -188,7 +182,7 @@ const MusicPlayer = () => {
 						className='w-8 h-8 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
 					>
-						<MdAllInclusive fontSize={'1.2em'} />
+						<BsShuffle fontSize={'1.2em'} />
 					</span>
 					<span
 						onClick={handlePrev}
@@ -247,12 +241,10 @@ const MusicPlayer = () => {
 				</div>
 				<input
 					type='range'
-					name='progessBar'
-					max={100}
+					name='progessVolume'
 					defaultValue={100}
 					className='col-span-6 appearance-none  h-1 bg-green-400 cursor-pointer my-2 slider '
-					// ref={progessBarRef}
-					// onChange={handleChageRange}
+					onChange={handleChageVolume}
 				/>
 			</div>
 		</div>
