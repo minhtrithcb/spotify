@@ -2,15 +2,21 @@ import React from 'react'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 import { BsThreeDotsVertical, BsFillGearFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPlayIndex, setPlayList } from '../../redux/slice/musicSlide'
+import { setMusic } from '../../redux/slice/musicSlide'
 
 const AlbumList = () => {
-	const { album } = useSelector((state) => state.music)
+	const { albumInfo } = useSelector((state) => state.music)
 	const dispatch = useDispatch()
 
-	const handleChoseMusic = (index) => {
-		dispatch(setPlayList(album))
-		dispatch(setPlayIndex(index))
+	// User chose song in album set playList & index Song
+	const handleChoseMusic = (music, index) => {
+		dispatch(
+			setMusic({
+				albumPlayList: albumInfo?.playList,
+				currentSong: music,
+				indexSong: index,
+			})
+		)
 	}
 
 	return (
@@ -35,12 +41,12 @@ const AlbumList = () => {
 				</thead>
 				<tbody className='h-4'></tbody>
 				<tbody>
-					{album?.playList.map((music, index) => (
+					{albumInfo?.playList.map((music, index) => (
 						<tr
 							className='cursor-pointer duration-300 hover:bg-slate-700'
 							key={index}
 							// onDoubleClick={() => handleChoseMusic(index)}
-							onClick={() => handleChoseMusic(index)}
+							onClick={() => handleChoseMusic(music, index)}
 						>
 							<td className='w-12 text-center rounded-l-lg'>
 								{index + 1}
@@ -65,7 +71,7 @@ const AlbumList = () => {
 								</div>
 							</td>
 							<td className='opacity-0 sm:opacity-100 '>
-								{album?.album}
+								{albumInfo?.album}
 							</td>
 							<td>3:20</td>
 
@@ -73,7 +79,8 @@ const AlbumList = () => {
 								<div className='w-full flex justify-center'>
 									<Dropdown
 										positionDown={
-											index === album?.playList.length - 1
+											index ===
+											albumInfo?.playList.length - 1
 												? true
 												: false
 										}

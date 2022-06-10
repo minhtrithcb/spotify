@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	playList: [],
-	album: null,
-	indexMusic: 0,
+	albumPlayList: [],
+	albumInfo: null,
+	currentSong: null,
+	indexSong: 0,
+	isPlaying: false,
 }
 
 export const musicSlide = createSlice({
@@ -11,16 +13,26 @@ export const musicSlide = createSlice({
 	initialState,
 	reducers: {
 		setAlbum: (state, action) => {
-			state.album = action.payload
+			state.albumInfo = action.payload
 		},
 		setPlayList: (state, action) => {
-			state.playList = action.payload
+			state.albumPlayList = action.payload
 		},
-		setPlayIndex: (state, action) => {
-			state.indexMusic = action.payload
+		setIndexSong: (state, action) => {
+			state.indexSong = action.payload
+		},
+		setIsPlaying: (state, action) => {
+			state.isPlaying = action.payload
+		},
+		setMusic: (state, action) => {
+			const { indexSong, currentSong, albumPlayList } = action.payload
+			state.albumPlayList = albumPlayList
+			state.currentSong = currentSong
+			state.indexSong = indexSong
 		},
 	},
 })
 
-export const { setAlbum, setPlayList, setPlayIndex } = musicSlide.actions
+export const { setAlbum, setPlayList, setIndexSong, setIsPlaying, setMusic } =
+	musicSlide.actions
 export default musicSlide.reducer

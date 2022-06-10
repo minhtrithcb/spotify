@@ -11,6 +11,7 @@ const Album = () => {
 	const { id } = useParams()
 	const navi = useNavigate()
 	const dispatch = useDispatch()
+
 	useEffect(() => {
 		const found = list.find((item) => item.id === id)
 		if (!found) return navi('/not-found', { replace: true })
