@@ -3,6 +3,7 @@ import MusicLayout from './layout/MusicLayout'
 import Search from './components/Search'
 import Home from './components/Music/Home'
 import Album from './components/Music/Album'
+import Library from './components/Library'
 
 function App() {
 	return (
@@ -11,6 +12,7 @@ function App() {
 				<Route element={<MusicLayout />}>
 					<Route path='/' element={<Home />} />
 					<Route path='/search' element={<Search />} />
+					<Route path='/your-library' element={<Library />} />
 					<Route path='/album/:id' element={<Album />} />
 				</Route>
 

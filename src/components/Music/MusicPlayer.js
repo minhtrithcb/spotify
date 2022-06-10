@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
 	BsFillPlayFill,
 	BsFillPauseFill,
@@ -11,52 +11,51 @@ import {
 	MdOutlineRepeat,
 	MdVolumeUp,
 } from 'react-icons/md'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+	setIsPlaying,
+	setIndexSong,
+	setMusic,
+} from '../../redux/slice/musicSlide'
+
 const MusicPlayer = () => {
+	const dispatch = useDispatch()
 	const progessBarRef = useRef(null)
 	const audioRef = useRef(null)
-	const [title, setTitle] = useState('')
-	const [artist, setArtist] = useState('')
-	const [indexSong, setIndexSong] = useState(0)
-	const [isPlay, setIsPlay] = useState(false)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
-	const { playList, indexMusic } = useSelector((state) => state.music)
-
-	const Data = useMemo(
-		() => (playList.length !== 0 ? [...playList?.playList] : []),
-		[playList]
+	const { albumPlayList, indexSong, isPlaying, currentSong } = useSelector(
+		(state) => state.music
 	)
 
+	// Force play
+	const forcePlay = useCallback(() => {
+		dispatch(setIsPlaying(true))
+		audioRef.current.play()
+	}, [dispatch])
+
+	// Set up
 	useEffect(() => {
 		const setupfirstSong = () => {
-			if (playList.length !== 0) {
-				setUpSong(Data[indexMusic])
+			if (albumPlayList.length !== 0) {
+				setUpSong(albumPlayList[indexSong])
 				forcePlay()
 			}
 		}
 		setupfirstSong()
-	}, [Data, indexMusic, playList.length])
+	}, [indexSong, albumPlayList, forcePlay])
 
 	// Set current song
 	const setUpSong = (music) => {
 		if (audioRef.current && music) {
 			audioRef.current.src = music.src
-			setTitle(music.title)
-			setArtist(music.artists)
 		}
 	}
 
 	// Toggle isPlay & if it play show pause button and otherwise ...
 	const playSong = () => {
-		setIsPlay((prev) => !prev)
-		!isPlay ? audioRef.current.play() : audioRef.current.pause()
-	}
-
-	// Only play
-	const forcePlay = () => {
-		setIsPlay(true)
-		audioRef.current.play()
+		dispatch(setIsPlaying(!isPlaying))
+		!isPlaying ? audioRef.current.play() : audioRef.current.pause()
 	}
 
 	// pause & reset stop
@@ -102,11 +101,21 @@ const MusicPlayer = () => {
 	const handlePrev = () => {
 		resetSong()
 		if (indexSong === 0) {
-			setIndexSong(Data.length - 1)
-			setUpSong(Data[Data.length - 1])
+			dispatch(
+				setMusic({
+					albumPlayList,
+					currentSong: albumPlayList[albumPlayList.length - 1],
+					indexSong: albumPlayList.length - 1,
+				})
+			)
 		} else {
-			setIndexSong((prev) => prev - 1)
-			setUpSong(Data[indexSong - 1])
+			dispatch(
+				setMusic({
+					albumPlayList,
+					currentSong: albumPlayList[indexSong - 1],
+					indexSong: indexSong - 1,
+				})
+			)
 		}
 		forcePlay()
 	}
@@ -114,12 +123,22 @@ const MusicPlayer = () => {
 	// Next song
 	const handleNext = () => {
 		resetSong()
-		if (Data.length - 1 === indexSong) {
-			setIndexSong(0)
-			setUpSong(Data[0])
+		if (albumPlayList.length - 1 === indexSong) {
+			dispatch(
+				setMusic({
+					albumPlayList,
+					currentSong: albumPlayList[0],
+					indexSong: 0,
+				})
+			)
 		} else {
-			setIndexSong((prev) => prev + 1)
-			setUpSong(Data[indexSong + 1])
+			dispatch(
+				setMusic({
+					albumPlayList,
+					currentSong: albumPlayList[indexSong + 1],
+					indexSong: indexSong + 1,
+				})
+			)
 		}
 		forcePlay()
 	}
@@ -149,6 +168,7 @@ const MusicPlayer = () => {
 		audioRef.current.currentTime = currentValue
 	}
 
+	// Change Volume
 	const handleChageVolume = (e) => {
 		audioRef.current.volume = e.target.value / 100
 	}
@@ -156,7 +176,7 @@ const MusicPlayer = () => {
 	return (
 		<div
 			className={`${
-				playList.length !== 0 ? 'grid' : 'hidden'
+				albumPlayList.length !== 0 ? 'grid' : 'hidden'
 			} fixed text-white bg-gray-800  border-gray-700 border-t w-full h-28 bottom-20 
             lg:bottom-0 left-0 z-50 grid-cols-3 px-4 grid-rows-2 gap-2 py-2 `}
 		>
@@ -170,8 +190,12 @@ const MusicPlayer = () => {
 				<div className='flex items-center'>
 					<div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
 					<div>
-						<p className='text-sm md:text-base'>{title}</p>
-						<p className='text-xs md:text-sm'>{artist}</p>
+						<p className='text-sm md:text-base'>
+							{currentSong?.title}
+						</p>
+						<p className='text-xs md:text-sm'>
+							{currentSong?.artists}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -196,7 +220,7 @@ const MusicPlayer = () => {
 						className='w-10 h-10 text-black rounded-full cursor-pointer 
                         hover:scale-110 transition-all bg-white flex items-center justify-center'
 					>
-						{isPlay ? (
+						{isPlaying ? (
 							<BsFillPauseFill fontSize={'1.2em'} />
 						) : (
 							<BsFillPlayFill fontSize={'1.2em'} />
@@ -225,6 +249,7 @@ const MusicPlayer = () => {
 						name='progessBar'
 						className='col-span-6 appearance-none w-full h-1 bg-green-400 cursor-pointer my-2 slider '
 						ref={progessBarRef}
+						defaultValue={0}
 						onChange={handleChageRange}
 					/>
 					<span className='text-right text-xs my-[2px]'>
