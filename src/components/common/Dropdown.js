@@ -8,17 +8,25 @@ const Dropdown = ({
 	styleBtn,
 	styleDropdown,
 	positionDown,
+	getHoverItem,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 
 	const menuRef = useRef(null)
-	useOutsite(menuRef, () => setIsOpen(false))
+	useOutsite(menuRef, () => {
+		getHoverItem && getHoverItem(null, true)
+		setIsOpen(false)
+	})
 
 	return (
 		<div className='relative flex items-center'>
 			<button
 				type='button'
-				onClick={() => setIsOpen((prev) => !prev)}
+				onClick={(e) => {
+					e.stopPropagation()
+					getHoverItem && getHoverItem(e.target, false)
+					setIsOpen((prev) => !prev)
+				}}
 				className={`z-10 ${styleBtn}`}
 			>
 				{title || 'Title'}
@@ -48,6 +56,9 @@ export const DropdownItem = ({ style, children }) => {
 		<li
 			className={`p-2  duration-300 rounded-md hover:bg-slate-600	
             flex items-center ${style}`}
+			onClick={(e) => {
+				e.stopPropagation()
+			}}
 		>
 			{children}
 		</li>

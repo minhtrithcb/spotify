@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 import { BsThreeDotsVertical, BsFillGearFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMusic } from '../../redux/slice/musicSlide'
 
 const AlbumList = () => {
-	const { albumInfo } = useSelector((state) => state.music)
+	const { albumInfo, searchPlayList } = useSelector((state) => state.music)
 	const dispatch = useDispatch()
+	const tbodyRef = useRef(null)
 
 	// User chose song in album set playList & index Song
 	const handleChoseMusic = (music, index) => {
@@ -17,6 +18,23 @@ const AlbumList = () => {
 				indexSong: index,
 			})
 		)
+	}
+
+	// Add hover class on click
+	const onHoverItem = (e, clear) => {
+		// if user not chose clear all
+		if (clear) return removeTbodyClass()
+		const trElement = e.closest('tr')
+		removeTbodyClass()
+		trElement.classList.add('bg-slate-700')
+	}
+
+	// Remove all hover class on tr
+	const removeTbodyClass = () => {
+		for (let i = 0; i < tbodyRef.current.children.length; i++) {
+			const element = tbodyRef.current.children[i]
+			element.classList.remove('bg-slate-700')
+		}
 	}
 
 	return (
@@ -40,12 +58,19 @@ const AlbumList = () => {
 					</tr>
 				</thead>
 				<tbody className='h-4'></tbody>
-				<tbody>
+				<tbody ref={tbodyRef}>
 					{albumInfo?.playList.map((music, index) => (
 						<tr
-							className='cursor-pointer duration-300 hover:bg-slate-700'
+							className={`cursor-pointer duration-300 hover:bg-slate-700 
+								${
+									searchPlayList?.find((i) =>
+										i.title.includes(music.title)
+									)
+										? ' bg-slate-700'
+										: null
+								}
+							`}
 							key={index}
-							// onDoubleClick={() => handleChoseMusic(index)}
 							onClick={() => handleChoseMusic(music, index)}
 						>
 							<td className='w-12 text-center rounded-l-lg'>
@@ -74,7 +99,6 @@ const AlbumList = () => {
 								{albumInfo?.album}
 							</td>
 							<td>3:20</td>
-
 							<td className='w-12 rounded-r-lg text-right sm:text-left pr-4'>
 								<div className='w-full flex justify-center'>
 									<Dropdown
@@ -89,6 +113,7 @@ const AlbumList = () => {
 												<BsThreeDotsVertical />
 											</div>
 										}
+										getHoverItem={onHoverItem}
 									>
 										<DropdownItem>
 											Add to playlist

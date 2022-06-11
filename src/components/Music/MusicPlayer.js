@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
 	BsFillPlayFill,
 	BsFillPauseFill,
@@ -10,23 +10,23 @@ import {
 	MdSkipPrevious,
 	MdOutlineRepeat,
 	MdVolumeUp,
+	MdVolumeOff,
 } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	setIsPlaying,
-	setIndexSong,
-	setMusic,
-} from '../../redux/slice/musicSlide'
+import { subString } from '../../helper/helper'
+import { setIsPlaying, setMusic } from '../../redux/slice/musicSlide'
 
 const MusicPlayer = () => {
 	const dispatch = useDispatch()
 	const progessBarRef = useRef(null)
 	const audioRef = useRef(null)
+	const volumeRef = useRef(null)
+	const [loop, setLoop] = useState(false)
+	const [mute, setMute] = useState(false)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
-	const { albumPlayList, indexSong, isPlaying, currentSong } = useSelector(
-		(state) => state.music
-	)
+	const { albumPlayList, indexSong, isPlaying, currentSong, togglePlay } =
+		useSelector((state) => state.music)
 
 	// Force play
 	const forcePlay = useCallback(() => {
@@ -45,7 +45,16 @@ const MusicPlayer = () => {
 		setupfirstSong()
 	}, [indexSong, albumPlayList, forcePlay])
 
-	// Set current song
+	// toggle play every togglePlay change
+	useEffect(() => {
+		// prevent first load
+		if (albumPlayList.length !== 0) {
+			playSong()
+		}
+		// eslint-disable-next-line
+	}, [togglePlay])
+
+	// Setup src song
 	const setUpSong = (music) => {
 		if (audioRef.current && music) {
 			audioRef.current.src = music.src
@@ -100,47 +109,31 @@ const MusicPlayer = () => {
 	// Previos song
 	const handlePrev = () => {
 		resetSong()
-		if (indexSong === 0) {
-			dispatch(
-				setMusic({
-					albumPlayList,
-					currentSong: albumPlayList[albumPlayList.length - 1],
-					indexSong: albumPlayList.length - 1,
-				})
-			)
-		} else {
-			dispatch(
-				setMusic({
-					albumPlayList,
-					currentSong: albumPlayList[indexSong - 1],
-					indexSong: indexSong - 1,
-				})
-			)
-		}
-		forcePlay()
+		const condition = indexSong === 0
+		dispatch(
+			setMusic({
+				albumPlayList,
+				currentSong: condition
+					? albumPlayList[albumPlayList.length - 1]
+					: albumPlayList[indexSong - 1],
+				indexSong: condition ? albumPlayList.length - 1 : indexSong - 1,
+			})
+		)
 	}
 
 	// Next song
 	const handleNext = () => {
 		resetSong()
-		if (albumPlayList.length - 1 === indexSong) {
-			dispatch(
-				setMusic({
-					albumPlayList,
-					currentSong: albumPlayList[0],
-					indexSong: 0,
-				})
-			)
-		} else {
-			dispatch(
-				setMusic({
-					albumPlayList,
-					currentSong: albumPlayList[indexSong + 1],
-					indexSong: indexSong + 1,
-				})
-			)
-		}
-		forcePlay()
+		const condition = albumPlayList.length - 1 === indexSong
+		dispatch(
+			setMusic({
+				albumPlayList,
+				currentSong: condition
+					? albumPlayList[0]
+					: albumPlayList[indexSong + 1],
+				indexSong: condition ? 0 : indexSong + 1,
+			})
+		)
 	}
 
 	// On audio run
@@ -158,10 +151,9 @@ const MusicPlayer = () => {
 	// On audio ended
 	const handleEnded = () => {
 		handleNext()
-		forcePlay()
 	}
 
-	// On change Input
+	// On change Input Range
 	const handleChageRange = (e) => {
 		const currentValue = e.target.value
 		progessBarRef.current.value = currentValue
@@ -171,6 +163,24 @@ const MusicPlayer = () => {
 	// Change Volume
 	const handleChageVolume = (e) => {
 		audioRef.current.volume = e.target.value / 100
+	}
+	// Loop single song
+	const handleLoopSong = (e) => {
+		setLoop((prev) => !prev)
+		if (audioRef.current && !loop) {
+			audioRef.current.loop = true
+		} else {
+			audioRef.current.loop = false
+		}
+	}
+
+	// Mute song
+	const handleMute = () => {
+		let volume
+		!mute ? (volume = 0) : (volume = 1)
+		audioRef.current.volume = volume
+		volumeRef.current.value = volume * 100
+		setMute((prev) => !prev)
 	}
 
 	return (
@@ -189,14 +199,22 @@ const MusicPlayer = () => {
 			<div className='row-span-2 col-span-3 lg:col-auto lg:row-span-2 flex items-center justify-between sm:flex-col sm:items-start md:justify-center'>
 				<div className='flex items-center'>
 					<div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
-					<div>
-						<p className='text-sm md:text-base'>
-							{currentSong?.title}
-						</p>
-						<p className='text-xs md:text-sm'>
-							{currentSong?.artists}
-						</p>
-					</div>
+					{currentSong && (
+						<div>
+							<p
+								className='text-sm md:text-base'
+								title={currentSong?.title}
+							>
+								{subString(currentSong?.title, 30)}
+							</p>
+							<p
+								className='text-xs md:text-sm'
+								title={currentSong?.artists}
+							>
+								{subString(currentSong?.artists, 30)}
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 			<div className='row-span-1 col-span-3 lg:col-auto'>
@@ -206,14 +224,17 @@ const MusicPlayer = () => {
 						className='w-8 h-8 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
 					>
-						<BsShuffle fontSize={'1.2em'} />
+						<BsShuffle fontSize={'1.2em'} title='Shuffle song' />
 					</span>
 					<span
 						onClick={handlePrev}
 						className='w-10 h-10 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
 					>
-						<MdSkipPrevious fontSize={'1.5em'} />
+						<MdSkipPrevious
+							fontSize={'1.5em'}
+							title='Previos song'
+						/>
 					</span>
 					<span
 						onClick={playSong}
@@ -221,9 +242,15 @@ const MusicPlayer = () => {
                         hover:scale-110 transition-all bg-white flex items-center justify-center'
 					>
 						{isPlaying ? (
-							<BsFillPauseFill fontSize={'1.2em'} />
+							<BsFillPauseFill
+								fontSize={'1.2em'}
+								title='Stop song'
+							/>
 						) : (
-							<BsFillPlayFill fontSize={'1.2em'} />
+							<BsFillPlayFill
+								fontSize={'1.2em'}
+								title='Play song'
+							/>
 						)}
 					</span>
 					<span
@@ -231,14 +258,16 @@ const MusicPlayer = () => {
 						className='w-10 h-10 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
 					>
-						<MdSkipNext fontSize={'1.5em'} />
+						<MdSkipNext fontSize={'1.5em'} title='Next song' />
 					</span>
 					<span
-						// onClick={handleNext}
-						className='w-8 h-8 rounded-full  text-white cursor-pointer 
-                        hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
+						onClick={handleLoopSong}
+						className={`w-8 h-8 rounded-full  text-white cursor-pointer ${
+							loop ? 'bg-green-500' : 'bg-transparent'
+						}
+                        hover:bg-green-500 transition-all flex items-center justify-center `}
 					>
-						<MdOutlineRepeat fontSize={'1.2em'} />
+						<MdOutlineRepeat fontSize={'1.2em'} title='Loop song' />
 					</span>
 				</div>
 
@@ -261,8 +290,15 @@ const MusicPlayer = () => {
 				<div className='p-2 cursor-pointer hover:bg-green-500 transition-all rounded-full '>
 					<BsHeart />
 				</div>
-				<div className='w-10 h-10 flex justify-center items-center'>
-					<MdVolumeUp fontSize={'1.2em'} />
+				<div
+					className='w-10 h-10 flex justify-center items-center cursor-pointer'
+					onClick={handleMute}
+				>
+					{!mute ? (
+						<MdVolumeUp fontSize={'1.2em'} />
+					) : (
+						<MdVolumeOff fontSize={'1.2em'} />
+					)}
 				</div>
 				<input
 					type='range'
@@ -270,6 +306,7 @@ const MusicPlayer = () => {
 					defaultValue={100}
 					className='col-span-6 appearance-none  h-1 bg-green-400 cursor-pointer my-2 slider '
 					onChange={handleChageVolume}
+					ref={volumeRef}
 				/>
 			</div>
 		</div>
