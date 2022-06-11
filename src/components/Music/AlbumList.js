@@ -29,7 +29,7 @@ const AlbumList = () => {
 		trElement.classList.add('bg-slate-700')
 	}
 
-	// Remove all hover class on tr
+	// // Remove all hover class on tr
 	const removeTbodyClass = () => {
 		for (let i = 0; i < tbodyRef.current.children.length; i++) {
 			const element = tbodyRef.current.children[i]
