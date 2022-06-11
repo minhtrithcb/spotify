@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-	albumPlayList: [],
-	albumInfo: null,
-	currentSong: null,
-	indexSong: 0,
-	isPlaying: false,
+	albumPlayList: [], // array contain currnet playlist
+	albumInfo: null, // state when user chose album
+	currentSong: null, // the current song user play
+	indexSong: 0, // position song in playlist
+	isPlaying: false, // flag to track song is Play
+	togglePlay: false, // flag to toggle song play
+	searchPlayList: [], // array contain search on playlist
 }
 
 export const musicSlide = createSlice({
@@ -14,6 +16,12 @@ export const musicSlide = createSlice({
 	reducers: {
 		setAlbum: (state, action) => {
 			state.albumInfo = action.payload
+		},
+		setSearchPlayList: (state, action) => {
+			state.searchPlayList = action.payload
+		},
+		setTogglePlay: (state, action) => {
+			state.togglePlay = action.payload
 		},
 		setPlayList: (state, action) => {
 			state.albumPlayList = action.payload
@@ -33,6 +41,13 @@ export const musicSlide = createSlice({
 	},
 })
 
-export const { setAlbum, setPlayList, setIndexSong, setIsPlaying, setMusic } =
-	musicSlide.actions
+export const {
+	setAlbum,
+	setPlayList,
+	setIndexSong,
+	setIsPlaying,
+	setMusic,
+	setTogglePlay,
+	setSearchPlayList,
+} = musicSlide.actions
 export default musicSlide.reducer

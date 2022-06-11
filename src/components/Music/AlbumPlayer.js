@@ -10,36 +10,73 @@ import {
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 import useOutsite from '../../hooks/useOutsite'
 import { useSelector, useDispatch } from 'react-redux'
-import { setIsPlaying, setMusic } from '../../redux/slice/musicSlide'
+import {
+	setIsPlaying,
+	setMusic,
+	setSearchPlayList,
+	setTogglePlay,
+} from '../../redux/slice/musicSlide'
 
 const AlbumPlayer = () => {
 	const [isOpenSearch, setIsOpenSearch] = useState(false)
 	const inputRef = useRef(null)
-	const { albumInfo, isPlaying, indexSong, currentSong } = useSelector(
-		(state) => state.music
-	)
-	useOutsite(inputRef, () => setIsOpenSearch(false))
+	const {
+		albumInfo,
+		isPlaying,
+		indexSong,
+		togglePlay,
+		currentSong,
+		albumPlayList,
+	} = useSelector((state) => state.music)
+	useOutsite(inputRef, () => {
+		dispatch(setSearchPlayList([]))
+		setIsOpenSearch(false)
+	})
 	const dispatch = useDispatch()
 
 	// Toggle isPlay & if it play show pause button and otherwise ...
 	const playSong = () => {
-		dispatch(setIsPlaying(!isPlaying))
-		if (indexSong === 0) {
-			dispatch(
-				setMusic({
-					albumPlayList: albumInfo?.playList,
-					currentSong: albumInfo?.playList[0],
-					indexSong: 0,
-				})
-			)
+		// Playing this album only the first time
+		if (albumPlayList.length === 0 && indexSong === 0)
+			return setupPlayAlbum()
+
+		// If user on same album is play pause when click
+		if (currentSong?.albumId + '' === albumInfo.id) {
+			dispatch(setTogglePlay(!togglePlay))
 		} else {
-			// dispatch(
-			// 	setMusic({
-			// 		albumPlayList: albumInfo?.playList,
-			// 		currentSong: albumInfo?.playList[indexSong],
-			// 		indexSong,
-			// 	})
-			// )
+			// Otherwise user on the other album setup again
+			setupPlayAlbum()
+		}
+	}
+
+	// Set up to run this album and the first song
+	const setupPlayAlbum = () => {
+		dispatch(setIsPlaying(!isPlaying))
+		dispatch(
+			setMusic({
+				albumPlayList: albumInfo?.playList,
+				currentSong: albumInfo?.playList[0],
+				indexSong: 0,
+			})
+		)
+	}
+
+	// Check if song on play equal album id
+	// currentSong?.albumId + '' => return string
+	const checkIsPlayingOnAlbum = () => {
+		return isPlaying && currentSong?.albumId + '' === albumInfo.id
+	}
+
+	// Handle Higtlight Search
+	const handleChageInput = (e) => {
+		const value = e.target.value
+		if (value !== '') {
+			const searchFound = albumInfo?.playList.filter((song) => {
+				return song.title.toLowerCase().includes(value.toLowerCase())
+			})
+			dispatch(setSearchPlayList(searchFound))
+		} else {
+			dispatch(setSearchPlayList([]))
 		}
 	}
 
@@ -51,7 +88,7 @@ const AlbumPlayer = () => {
                     rounded-full right-4 duration-300 text-black shadow-md cursor-pointer'
 					onClick={playSong}
 				>
-					{isPlaying ? (
+					{checkIsPlayingOnAlbum() ? (
 						<BsFillPauseFill fontSize={'1.2em'} />
 					) : (
 						<BsFillPlayFill fontSize={'1.2em'} />
@@ -90,6 +127,7 @@ const AlbumPlayer = () => {
 					<input
 						type='text'
 						ref={inputRef}
+						onChange={handleChageInput}
 						placeholder='Search playlist'
 						className={`pl-10 h-10 duration-300 outline-none transition-all
 						bg-slate-600 rounded text-white ${isOpenSearch ? 'w-full' : 'w-[0%] '}`}
