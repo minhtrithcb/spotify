@@ -28,8 +28,10 @@ const AlbumPlayer = () => {
 		currentSong,
 		albumPlayList,
 	} = useSelector((state) => state.music)
+	const [searchInput, setSearchInput] = useState('')
 	useOutsite(inputRef, () => {
-		dispatch(setSearchPlayList([]))
+		setSearchInput('')
+		if (searchInput !== '') dispatch(setSearchPlayList([]))
 		setIsOpenSearch(false)
 	})
 	const dispatch = useDispatch()
@@ -66,10 +68,10 @@ const AlbumPlayer = () => {
 	const checkIsPlayingOnAlbum = () => {
 		return isPlaying && currentSong?.albumId + '' === albumInfo.id
 	}
-
 	// Handle Higtlight Search
 	const handleChageInput = (e) => {
 		const value = e.target.value
+		setSearchInput(value)
 		if (value !== '') {
 			const searchFound = albumInfo?.playList.filter((song) => {
 				return song.title.toLowerCase().includes(value.toLowerCase())
@@ -128,6 +130,7 @@ const AlbumPlayer = () => {
 						type='text'
 						ref={inputRef}
 						onChange={handleChageInput}
+						value={searchInput}
 						placeholder='Search playlist'
 						className={`pl-10 h-10 duration-300 outline-none transition-all
 						bg-slate-600 rounded text-white ${isOpenSearch ? 'w-full' : 'w-[0%] '}`}

@@ -11,7 +11,6 @@ const Dropdown = ({
 	getHoverItem,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
-
 	const menuRef = useRef(null)
 	useOutsite(menuRef, () => {
 		getHoverItem && getHoverItem(null, true)
