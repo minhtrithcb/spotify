@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
-import { IoMdArrowDropdown } from 'react-icons/io'
 import {
 	BsDownload,
 	BsSearch,
@@ -20,6 +19,7 @@ import {
 const AlbumPlayer = () => {
 	const [isOpenSearch, setIsOpenSearch] = useState(false)
 	const inputRef = useRef(null)
+	const typingTimer = useRef(null)
 	const dispatch = useDispatch()
 	const {
 		albumInfo,
@@ -34,8 +34,6 @@ const AlbumPlayer = () => {
 
 	// Click outsite search box
 	useOutsite(inputRef, () => {
-		setSearchInput('')
-		if (searchInput !== '') dispatch(setSearchPlayList([]))
 		setIsOpenSearch(false)
 	})
 
@@ -69,16 +67,16 @@ const AlbumPlayer = () => {
 	// Check if song on play equal album id
 	// currentSong?.albumId + '' => return string
 	const checkIsPlayingOnAlbum = () => {
-		return isPlaying && currentSong?.albumId + '' === albumInfo.id
+		return isPlaying && currentSong?.albumId + '' === albumInfo?.id
 	}
-	const typingTimer = useRef(null)
 
 	// Handle Higtlight Search
 	const handleChageInput = (e) => {
 		const value = e.target.value
 		setSearchInput(value)
+		if (typingTimer.current) clearTimeout(typingTimer.current)
+
 		if (value !== '') {
-			if (typingTimer.current) clearTimeout(typingTimer.current)
 			typingTimer.current = setTimeout(() => {
 				const searchFound = albumInfo?.playList.filter((song) => {
 					return song.title
@@ -91,6 +89,7 @@ const AlbumPlayer = () => {
 			dispatch(setSearchPlayList([]))
 		}
 	}
+
 	// Handle Keydown enter
 	const handleKeyDown = (e) => {
 		if (e.keyCode === 13) {
@@ -135,17 +134,29 @@ const AlbumPlayer = () => {
 				>
 					<FaRegHeart />
 				</span>
-				<span
-					className='w-10 h-10 ml-2 md:ml-4 flex items-center justify-center hover:bg-green-500 hover:text-black
-                    rounded-full right-4 duration-300 text-gray-200  cursor-pointer'
+
+				<Dropdown
+					positionX={true}
+					title={
+						<span
+							className='w-10 h-10 ml-2 md:ml-4 flex items-center justify-center hover:bg-green-500 hover:text-black
+						   rounded-full right-4 duration-300 text-gray-200  cursor-pointer'
+						>
+							<BsDownload />
+						</span>
+					}
 				>
-					<BsDownload />
-				</span>
+					<DropdownItem>Title</DropdownItem>
+					<DropdownItem>Artist</DropdownItem>
+					<DropdownItem>Album</DropdownItem>
+					<DropdownItem>Date added</DropdownItem>
+					<DropdownItem>Duration</DropdownItem>
+				</Dropdown>
 			</div>
 
-			<div className='flex items-center '>
+			<div className='flex items-center'>
 				<div
-					className={`relative text-black mr-4 transition-all ${
+					className={`relative text-black transition-all ${
 						!isOpenSearch ? 'w-10' : 'w-52'
 					} `}
 				>
@@ -166,26 +177,10 @@ const AlbumPlayer = () => {
 						value={searchInput}
 						onKeyDown={handleKeyDown}
 						placeholder='Search playlist'
-						className={`pl-10 h-10 duration-300 outline-none transition-all
+						className={`pl-10 h-10 duration-300 outline-none
 						bg-slate-600 rounded text-white ${isOpenSearch ? 'w-full' : 'w-[0%] '}`}
 					/>
 				</div>
-				<Dropdown
-					title={
-						<div className='w-auto h-10 rounded p-2 flex items-center justify-end duration-300 bg-slate-600'>
-							<span className='md md:mr-2 text-sm md:text-base'>
-								Sort by
-							</span>
-							<IoMdArrowDropdown className='hidden md:block' />
-						</div>
-					}
-				>
-					<DropdownItem>Title</DropdownItem>
-					<DropdownItem>Artist</DropdownItem>
-					<DropdownItem>Album</DropdownItem>
-					<DropdownItem>Date added</DropdownItem>
-					<DropdownItem>Duration</DropdownItem>
-				</Dropdown>
 			</div>
 		</div>
 	)

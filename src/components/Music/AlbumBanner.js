@@ -6,7 +6,7 @@ const AlbumBanner = () => {
 
 	return (
 		<div className='w-full flex items-center h-[200px] md:h-[300px] bg-gradient-to-r from-green-500 to-teal-500 rounded-lg'>
-			<div className='hidden sm:block w-[100px] md:w-[150px] h-[100px] overflow-hidden md:h-[150px] bg-gradient-to-r from-green-700 to-teal-700 shadow-xl mx-4 rounded-lg'>
+			<div className='hidden xs:block w-[100px] md:w-[150px] h-[100px] overflow-hidden md:h-[150px] bg-gradient-to-r from-green-700 to-teal-700 shadow-xl mx-4 rounded-lg'>
 				<img
 					src={albumInfo?.thumbnail}
 					alt='thumbnail'

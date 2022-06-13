@@ -33,6 +33,8 @@ Trong thư mục chính chạy
 
 -   like song: (lưu tất cả theo user)
 
+-   ( KeyBoard support)
+
 #### Đang làm
 
 -   Album chọn sẻ phát, (see all album)
