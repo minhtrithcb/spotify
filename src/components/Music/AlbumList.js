@@ -1,13 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 import { BsThreeDotsVertical, BsFillGearFill } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { setMusic } from '../../redux/slice/musicSlide'
+import Wave from '../common/Wave'
 
 const AlbumList = () => {
-	const { albumInfo, searchPlayList } = useSelector((state) => state.music)
+	const { albumInfo, searchPlayList, currentSong, isPlaying } = useSelector(
+		(state) => state.music
+	)
 	const dispatch = useDispatch()
 	const tbodyRef = useRef(null)
+	const foundSongRef = useRef(null)
 
 	// User chose song in album set playList & index Song
 	const handleChoseMusic = (music, index) => {
@@ -37,6 +41,13 @@ const AlbumList = () => {
 		}
 	}
 
+	// trigger scroll every searchPlayList change
+	useEffect(() => {
+		if (foundSongRef.current) {
+			foundSongRef.current.scrollIntoView({ behavior: 'smooth' })
+		}
+	}, [searchPlayList])
+
 	return (
 		<div className='w-full md:p-4'>
 			<table className='table-fixed w-full '>
@@ -62,23 +73,37 @@ const AlbumList = () => {
 					{albumInfo?.playList.map((music, index) => (
 						<tr
 							className={`cursor-pointer duration-300 hover:bg-slate-700 
-								${
-									searchPlayList?.find((i) =>
-										i.title.includes(music.title)
-									)
-										? ' bg-slate-700'
-										: null
-								}
+									${
+										searchPlayList?.find((i) =>
+											i.title.includes(music.title)
+										)
+											? ' bg-teal-600'
+											: null
+									}
+								${currentSong?.title === music.title ? 'bg-slate-700' : ''}
 							`}
+							ref={
+								searchPlayList[0]?.title === music.title
+									? foundSongRef
+									: null
+							}
 							key={index}
 							onClick={() => handleChoseMusic(music, index)}
 						>
+							{/* // id is not unique so use title  */}
 							<td className='w-12 text-center rounded-l-lg'>
 								{index + 1}
 							</td>
 							<td className='py-4'>
 								<div className='flex items-center'>
-									<div className='hidden rounded lg:block mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
+									{currentSong?.title === music.title &&
+									isPlaying ? (
+										<div className='w-10 h-10 flex mr-4'>
+											<Wave />
+										</div>
+									) : (
+										<div className='hidden rounded lg:block mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
+									)}
 									<div>
 										<p
 											className='whitespace-nxowrap'
@@ -95,7 +120,7 @@ const AlbumList = () => {
 									</div>
 								</div>
 							</td>
-							<td className='opacity-0 sm:opacity-100 '>
+							<td className='opacity-0 sm:opacity-100'>
 								{albumInfo?.album}
 							</td>
 							<td>3:20</td>

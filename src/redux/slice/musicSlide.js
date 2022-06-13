@@ -7,6 +7,8 @@ const initialState = {
 	indexSong: 0, // position song in playlist
 	isPlaying: false, // flag to track song is Play
 	togglePlay: false, // flag to toggle song play
+	isLoop: false, // state loop
+	isMute: false, // state mute
 	searchPlayList: [], // array contain search on playlist
 }
 
@@ -16,6 +18,12 @@ export const musicSlide = createSlice({
 	reducers: {
 		setAlbum: (state, action) => {
 			state.albumInfo = action.payload
+		},
+		setIsLoop: (state, action) => {
+			state.isLoop = action.payload
+		},
+		setIsMute: (state, action) => {
+			state.isMute = action.payload
 		},
 		setSearchPlayList: (state, action) => {
 			state.searchPlayList = action.payload
@@ -47,6 +55,8 @@ export const {
 	setIndexSong,
 	setIsPlaying,
 	setMusic,
+	setIsLoop,
+	setIsMute,
 	setTogglePlay,
 	setSearchPlayList,
 } = musicSlide.actions

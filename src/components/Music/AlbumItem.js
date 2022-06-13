@@ -1,8 +1,22 @@
 import React from 'react'
 import { FaPlay } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { setMusic } from '../../redux/slice/musicSlide'
 
-const AlbumItem = ({ data: { id, artists, album, thumbnail } }) => {
+const AlbumItem = ({ data: { id, artists, album, thumbnail, playList } }) => {
+	const dispatch = useDispatch()
+
+	const handlePlayAlbum = () => {
+		dispatch(
+			setMusic({
+				albumPlayList: playList,
+				currentSong: playList[0],
+				indexSong: 0,
+			})
+		)
+	}
+
 	return (
 		<li
 			className='h-[210px] bg-slate-700 text-white rounded-md p-2 
@@ -20,19 +34,18 @@ const AlbumItem = ({ data: { id, artists, album, thumbnail } }) => {
 			</Link>
 			{artists.map((a) => a)}
 
-			<Link to={`/album/${id}`}>
-				<span
-					onContextMenu={(e) => {
-						e.preventDefault()
-					}}
-					className='absolute w-10 h-10 bg-green-500 flex items-center justify-center
+			<span
+				onContextMenu={(e) => {
+					e.preventDefault()
+				}}
+				onClick={handlePlayAlbum}
+				className='absolute w-10 h-10 bg-green-500 flex items-center justify-center
                     rounded-full right-4 duration-300 bottom-16 opacity-0 text-black shadow-md
                     group-hover:opacity-100
                     group-hover:bottom-20'
-				>
-					<FaPlay />
-				</span>
-			</Link>
+			>
+				<FaPlay />
+			</span>
 			<span></span>
 		</li>
 	)
