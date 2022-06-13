@@ -14,20 +14,29 @@ import {
 } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { subString } from '../../helper/helper'
-import { setIsPlaying, setMusic } from '../../redux/slice/musicSlide'
+import {
+	setIsLoop,
+	setIsPlaying,
+	setMusic,
+	setIsMute,
+} from '../../redux/slice/musicSlide'
 
 const MusicPlayer = () => {
 	const dispatch = useDispatch()
 	const progessBarRef = useRef(null)
 	const audioRef = useRef(null)
 	const volumeRef = useRef(null)
-	const [loop, setLoop] = useState(false)
-	const [mute, setMute] = useState(false)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
-	const { albumPlayList, indexSong, isPlaying, currentSong, togglePlay } =
-		useSelector((state) => state.music)
-
+	const {
+		albumPlayList,
+		indexSong,
+		isPlaying,
+		currentSong,
+		togglePlay,
+		isMute,
+		isLoop,
+	} = useSelector((state) => state.music)
 	// Force play
 	const forcePlay = useCallback(() => {
 		dispatch(setIsPlaying(true))
@@ -166,8 +175,8 @@ const MusicPlayer = () => {
 	}
 	// Loop single song
 	const handleLoopSong = (e) => {
-		setLoop((prev) => !prev)
-		if (audioRef.current && !loop) {
+		dispatch(setIsLoop(!isLoop))
+		if (audioRef.current && !isLoop) {
 			audioRef.current.loop = true
 		} else {
 			audioRef.current.loop = false
@@ -177,10 +186,10 @@ const MusicPlayer = () => {
 	// Mute song
 	const handleMute = () => {
 		let volume
-		!mute ? (volume = 0) : (volume = 1)
+		!isMute ? (volume = 0) : (volume = 1)
 		audioRef.current.volume = volume
 		volumeRef.current.value = volume * 100
-		setMute((prev) => !prev)
+		dispatch(setIsMute(!isMute))
 	}
 
 	return (
@@ -263,7 +272,7 @@ const MusicPlayer = () => {
 					<span
 						onClick={handleLoopSong}
 						className={`w-8 h-8 rounded-full  text-white cursor-pointer ${
-							loop ? 'bg-green-500' : 'bg-transparent'
+							isLoop ? 'bg-green-500' : 'bg-transparent'
 						}
                         hover:bg-green-500 transition-all flex items-center justify-center `}
 					>
@@ -294,7 +303,7 @@ const MusicPlayer = () => {
 					className='w-10 h-10 flex justify-center items-center cursor-pointer'
 					onClick={handleMute}
 				>
-					{!mute ? (
+					{!isMute ? (
 						<MdVolumeUp fontSize={'1.2em'} />
 					) : (
 						<MdVolumeOff fontSize={'1.2em'} />
