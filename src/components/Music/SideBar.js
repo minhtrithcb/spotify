@@ -37,15 +37,14 @@ const SideBar = () => {
 		},
 	]
 	const location = useLocation()
-
 	const active = (path) => {
 		return location.pathname === path
 	}
 
 	return (
 		<div
-			className='w-full h-20 lg:w-80 lg:h-screen bg-gray-800  text-white fixed 
-			bottom-0 border-gray-700 border-r border-t z-10'
+			className={`w-full h-20 lg:w-80 lg:h-screen bg-gray-800  text-white fixed 
+			bottom-0 border-gray-700 border-r border-t z-[999] lg:z-10`}
 		>
 			<div className='p-8 lg:flex items-center hidden'>
 				<img src={logo} alt='logo_icon' className='w-10 mr-4' />

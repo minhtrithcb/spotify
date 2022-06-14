@@ -19,7 +19,7 @@ const Album = () => {
 	}, [id, dispatch, navi])
 
 	return (
-		<div className='text-white w-full'>
+		<div className='text-white w-full p-2 lg:p-4'>
 			<AlbumBanner />
 			<AlbumPlayer />
 			<AlbumList />
