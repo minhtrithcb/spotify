@@ -4,6 +4,8 @@ import {
 	BsFillPauseFill,
 	BsHeart,
 	BsShuffle,
+	BsChevronUp,
+	BsChevronDown,
 } from 'react-icons/bs'
 import {
 	MdSkipNext,
@@ -20,6 +22,8 @@ import {
 	setMusic,
 	setIsMute,
 } from '../../redux/slice/musicSlide'
+import useResize from '../../hooks/useResize'
+import AlbumDisk from './AlbumDisk'
 
 const MusicPlayer = () => {
 	const dispatch = useDispatch()
@@ -28,6 +32,7 @@ const MusicPlayer = () => {
 	const volumeRef = useRef(null)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
+	const [isOpenMobiePlayer, setIsOpenMobiePlayer] = useState(false)
 	const {
 		albumPlayList,
 		indexSong,
@@ -42,7 +47,10 @@ const MusicPlayer = () => {
 		dispatch(setIsPlaying(true))
 		audioRef.current.play()
 	}, [dispatch])
-
+	// when breakpoin 1024px auto hide isOpenMobiePlayer
+	useResize(1024, () => {
+		setIsOpenMobiePlayer(false)
+	})
 	// Set up
 	useEffect(() => {
 		const setupfirstSong = () => {
@@ -193,130 +201,161 @@ const MusicPlayer = () => {
 	}
 
 	return (
-		<div
-			className={`${
-				albumPlayList.length !== 0 ? 'grid' : 'hidden'
-			} fixed text-white bg-gray-800  border-gray-700 border-t w-full h-28 bottom-20 
-            lg:bottom-0 left-0 z-50 grid-cols-3 px-4 grid-rows-2 gap-2 py-2 `}
-		>
-			<audio
-				ref={audioRef}
-				onTimeUpdate={handleTimeUpdate}
-				onCanPlayThrough={handleCanplaythrough}
-				onEnded={handleEnded}
-			></audio>
-			<div className='row-span-2 col-span-3 lg:col-auto lg:row-span-2 flex items-center justify-between sm:flex-col sm:items-start md:justify-center'>
-				<div className='flex items-center'>
-					<div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
-					{currentSong && (
-						<div>
-							<p
-								className='text-sm md:text-base'
-								title={currentSong?.title}
-							>
-								{subString(currentSong?.title, 30)}
-							</p>
-							<p
-								className='text-xs md:text-sm'
-								title={currentSong?.artists}
-							>
-								{subString(currentSong?.artists, 30)}
-							</p>
+		<div>
+			{/* // Mobile Player  */}
+			<AlbumDisk
+				isOpen={isOpenMobiePlayer}
+				setIsOpen={setIsOpenMobiePlayer}
+			/>
+			<div
+				className={`${albumPlayList.length !== 0 ? 'grid' : 'hidden'}
+			fixed text-white bg-gray-800  border-gray-700 border-t w-full h-40 lg:h-32
+			bottom-20 lg:bottom-0 left-0 z-50 grid-cols-3 px-4 gap-4 py-4 grid-rows-2 `}
+			>
+				<audio
+					ref={audioRef}
+					onTimeUpdate={handleTimeUpdate}
+					onCanPlayThrough={handleCanplaythrough}
+					onEnded={handleEnded}
+				></audio>
+				{/* // Title & artist  */}
+				<div className='row-span-2 col-span-3 lg:col-auto lg:row-span-2 flex items-center justify-between sm:flex-col sm:items-start md:justify-center'>
+					<div className='flex items-center justify-between w-full'>
+						<div className='flex items-center'>
+							<div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
+							{currentSong && (
+								<div>
+									<p
+										className='text-sm md:text-base'
+										title={currentSong?.title}
+									>
+										{subString(currentSong?.title, 30)}
+									</p>
+									<p
+										className='text-xs md:text-sm'
+										title={currentSong?.artists}
+									>
+										{subString(currentSong?.artists, 30)}
+									</p>
+								</div>
+							)}
 						</div>
-					)}
+						<div
+							className='cursor-pointer lg:hidden duration-300 hover:bg-slate-500 
+							w-8 h-8 rounded-full flex items-center justify-center'
+							onClick={() =>
+								setIsOpenMobiePlayer((prev) => !prev)
+							}
+						>
+							{!isOpenMobiePlayer ? (
+								<BsChevronUp />
+							) : (
+								<BsChevronDown />
+							)}
+						</div>
+					</div>
 				</div>
-			</div>
-			<div className='row-span-1 col-span-3 lg:col-auto'>
-				<div className='flex justify-between items-center lg:w-3/4 mx-auto lg:my-2'>
-					<span
-						// onClick={handlePrev}
-						className='w-8 h-8 rounded-full  text-white cursor-pointer 
+				{/* // Control  */}
+				<div className='row-span-1 col-span-3 lg:col-auto'>
+					<div className='flex justify-between items-center lg:w-3/4 mx-auto lg:my-2'>
+						<span
+							className='w-8 h-8 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
-					>
-						<BsShuffle fontSize={'1.2em'} title='Shuffle song' />
-					</span>
-					<span
-						onClick={handlePrev}
-						className='w-10 h-10 rounded-full  text-white cursor-pointer 
+						>
+							<BsShuffle
+								fontSize={'1.2em'}
+								title='Shuffle song'
+							/>
+						</span>
+						<span
+							onClick={handlePrev}
+							className='w-10 h-10 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
-					>
-						<MdSkipPrevious
-							fontSize={'1.5em'}
-							title='Previos song'
-						/>
-					</span>
-					<span
-						onClick={playSong}
-						className='w-10 h-10 text-black rounded-full cursor-pointer 
+						>
+							<MdSkipPrevious
+								fontSize={'1.5em'}
+								title='Previos song'
+							/>
+						</span>
+						<span
+							onClick={playSong}
+							className='w-10 h-10 text-black rounded-full cursor-pointer 
                         hover:scale-110 transition-all bg-white flex items-center justify-center'
-					>
-						{isPlaying ? (
-							<BsFillPauseFill
-								fontSize={'1.2em'}
-								title='Stop song'
-							/>
-						) : (
-							<BsFillPlayFill
-								fontSize={'1.2em'}
-								title='Play song'
-							/>
-						)}
-					</span>
-					<span
-						onClick={handleNext}
-						className='w-10 h-10 rounded-full  text-white cursor-pointer 
+						>
+							{isPlaying ? (
+								<BsFillPauseFill
+									fontSize={'1.2em'}
+									title='Stop song'
+								/>
+							) : (
+								<BsFillPlayFill
+									fontSize={'1.2em'}
+									title='Play song'
+								/>
+							)}
+						</span>
+						<span
+							onClick={handleNext}
+							className='w-10 h-10 rounded-full  text-white cursor-pointer 
                         hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
-					>
-						<MdSkipNext fontSize={'1.5em'} title='Next song' />
-					</span>
-					<span
-						onClick={handleLoopSong}
-						className={`w-8 h-8 rounded-full  text-white cursor-pointer ${
-							isLoop ? 'bg-green-500' : 'bg-transparent'
-						}
+						>
+							<MdSkipNext fontSize={'1.5em'} title='Next song' />
+						</span>
+						<span
+							onClick={handleLoopSong}
+							className={`w-8 h-8 rounded-full  text-white cursor-pointer ${
+								isLoop ? 'bg-green-500' : 'bg-transparent'
+							}
                         hover:bg-green-500 transition-all flex items-center justify-center `}
-					>
-						<MdOutlineRepeat fontSize={'1.2em'} title='Loop song' />
-					</span>
+						>
+							<MdOutlineRepeat
+								fontSize={'1.2em'}
+								title='Loop song'
+							/>
+						</span>
+					</div>
+					{/* // Music range  */}
+					<div className={`grid grid-cols-8 py-2`}>
+						<span className='text-xs my-[2px]'>
+							{songRemaining}
+						</span>
+						<input
+							type='range'
+							name='progessBar'
+							className='col-span-6 appearance-none w-full h-1 bg-green-400 cursor-pointer my-2 slider '
+							ref={progessBarRef}
+							defaultValue={0}
+							onChange={handleChageRange}
+						/>
+						<span className='text-right text-xs my-[2px]'>
+							{songDuration}
+						</span>
+					</div>
 				</div>
-
-				<div className='hidden lg:grid grid-cols-8 py-2 '>
-					<span className='text-xs my-[2px]'>{songRemaining}</span>
+				{/* // Volume  */}
+				<div className='lg:col-auto lg:row-span-2 hidden lg:flex items-center justify-end'>
+					<div className='p-2 cursor-pointer hover:bg-green-500 transition-all rounded-full '>
+						<BsHeart />
+					</div>
+					<div
+						className='w-10 h-10 flex justify-center items-center cursor-pointer'
+						onClick={handleMute}
+					>
+						{!isMute ? (
+							<MdVolumeUp fontSize={'1.2em'} />
+						) : (
+							<MdVolumeOff fontSize={'1.2em'} />
+						)}
+					</div>
 					<input
 						type='range'
-						name='progessBar'
-						className='col-span-6 appearance-none w-full h-1 bg-green-400 cursor-pointer my-2 slider '
-						ref={progessBarRef}
-						defaultValue={0}
-						onChange={handleChageRange}
+						name='progessVolume'
+						defaultValue={100}
+						className='col-span-6 appearance-none  h-1 bg-green-400 cursor-pointer my-2 slider '
+						onChange={handleChageVolume}
+						ref={volumeRef}
 					/>
-					<span className='text-right text-xs my-[2px]'>
-						{songDuration}
-					</span>
 				</div>
-			</div>
-			<div className='lg:col-auto lg:row-span-2 hidden lg:flex items-center justify-end'>
-				<div className='p-2 cursor-pointer hover:bg-green-500 transition-all rounded-full '>
-					<BsHeart />
-				</div>
-				<div
-					className='w-10 h-10 flex justify-center items-center cursor-pointer'
-					onClick={handleMute}
-				>
-					{!isMute ? (
-						<MdVolumeUp fontSize={'1.2em'} />
-					) : (
-						<MdVolumeOff fontSize={'1.2em'} />
-					)}
-				</div>
-				<input
-					type='range'
-					name='progessVolume'
-					defaultValue={100}
-					className='col-span-6 appearance-none  h-1 bg-green-400 cursor-pointer my-2 slider '
-					onChange={handleChageVolume}
-					ref={volumeRef}
-				/>
 			</div>
 		</div>
 	)

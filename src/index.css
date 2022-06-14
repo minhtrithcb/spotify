@@ -41,6 +41,47 @@ body::-webkit-scrollbar {
   transition: opacity 300ms, transform 300ms;
 }
 
+.slideY-enter {
+  opacity: 0;
+  transform: translateY(50%);
+}
+
+.slideY-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.slideY-exit {
+  opacity: 1;
+}
+
+.slideY-exit-active {
+  opacity: 0;
+  transform: translateY(30%);
+  /* transform: scale(0.9); */
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-enter {
+  opacity: 0;
+
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
@@ -97,4 +138,20 @@ body::-webkit-scrollbar {
   60%{height:35px; background:#14b8a6;}  
   80%{height:15px; background:#22c55e;}  
   100%{height:40px; background:#14b8a6;}  
+}
+
+.diskSpinPlay {
+  animation: diskSpin 5s linear infinite;
+  animation-play-state: running;
+}
+
+.diskSpinPaused {
+  animation: diskSpin 5s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes diskSpin {
+  to {
+    transform: rotate(360deg);
+  }
 }

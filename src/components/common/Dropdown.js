@@ -7,7 +7,8 @@ const Dropdown = ({
 	children,
 	styleBtn,
 	styleDropdown,
-	positionDown,
+	positionY,
+	positionX,
 	getHoverItem,
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -38,8 +39,10 @@ const Dropdown = ({
 				nodeRef={menuRef}
 			>
 				<div
-					className={`bg-gray-700 z-20  absolute right-0 
-					${positionDown ? 'bottom-0' : 'top-14'} min-w-[200px]
+					className={`bg-gray-700 z-20  absolute ${
+						positionX ? 'left-0' : 'right-0'
+					}
+					${positionY ? 'bottom-0' : 'top-14'} min-w-[200px]
                     cursor-pointer p-2 rounded-md shadow-xl ${styleDropdown}`}
 					ref={menuRef}
 				>
