@@ -33,7 +33,7 @@ const AlbumDisk = ({ isOpen, setIsOpen }) => {
 					</div>
 				</div>
 				<div
-					className={`w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] overflow-hidden shadow-2xl shadow-green-500/30
+					className={`w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] overflow-hidden shadow-2xl shadow-green-500/30
 					bg-gradient-to-r from-green-700 to-teal-700 mx-4 rounded-full duration-700 ${
 						isPlaying ? 'diskSpinPlay' : 'diskSpinPaused '
 					}`}
