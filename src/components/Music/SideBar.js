@@ -46,7 +46,7 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 		<div
 			// w-full h-20 lg:w-80
 			className={`lg:h-screen bg-gray-800  text-white fixed w-full
-			bottom-0 border-gray-700 border-r border-t z-[999] lg:z-10  
+			bottom-0 border-gray-700 border-r border-t z-[999] lg:z-10 navbar
 			${toggleSideBar ? 'lg:w-20' : 'lg:w-80'}`}
 		>
 			<div
@@ -63,10 +63,10 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 						Spotify
 					</Link>
 				)}
-
 				<span
 					onClick={() => settoggleSideBar((prev) => !prev)}
-					className='w-7 absolute -right-8 bottom-1/2 translate-y-1/2 h-7 cursor-pointer duration-300 flex justify-center items-center bg-gray-600 rounded-full mr-4'
+					className='w-7 absolute -right-8 bottom-1/2 translate-y-1/2 btn__navbar opacity-0
+					h-7 cursor-pointer duration-300 flex justify-center items-center bg-gray-600 rounded-full mr-4'
 				>
 					{!toggleSideBar ? (
 						<IoIosArrowBack />
@@ -110,7 +110,7 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 								<span
 									className={`ml-4 ${
 										toggleSideBar &&
-										`absolute whitespace-nowrap ml-16 bg-slate-700 px-4 py-2 
+										`absolute whitespace-nowrap ml-16 bg-slate-600 px-4 py-2 
 										text-sm rounded scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 duration-300`
 									}`}
 								>

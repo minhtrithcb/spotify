@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const TitleBar = ({ title = 'Title', linkSeeAll = '/' }) => {
 	return (
-		<div className='h-10 my-4 w-full flex justify-between text-white items-center'>
+		<div className='h-10 my-4 w-full flex justify-between text-white items-center pr-4'>
 			<span className='text-lg font-semibold uppercase px-4 py-1 cursor-pointer duration-300'>
 				<Link to={linkSeeAll}>{title}</Link>
 			</span>

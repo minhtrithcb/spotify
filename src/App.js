@@ -15,7 +15,6 @@ function App() {
 					<Route path='/your-library' element={<Library />} />
 					<Route path='/album/:id' element={<Album />} />
 				</Route>
-
 				<Route
 					path='*'
 					element={
