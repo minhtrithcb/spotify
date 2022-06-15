@@ -2,16 +2,18 @@ import React from 'react'
 import { FaPlay } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setMusic } from '../../redux/slice/musicSlide'
+import { setAlbum, setMusic } from '../../redux/slice/musicSlide'
 
-const AlbumItem = ({ data: { id, artists, album, thumbnail, playList } }) => {
+const AlbumItem = ({ album }) => {
 	const dispatch = useDispatch()
 
 	const handlePlayAlbum = () => {
+		dispatch(setAlbum(album))
+
 		dispatch(
 			setMusic({
-				albumPlayList: playList,
-				currentSong: playList[0],
+				albumPlayList: album?.playList,
+				currentSong: album?.playList[0],
 				indexSong: 0,
 			})
 		)
@@ -24,20 +26,16 @@ const AlbumItem = ({ data: { id, artists, album, thumbnail, playList } }) => {
 		>
 			<div className='h-[130px] overflow-hidden rounded-md w-full shadow-md bg-gradient-to-r from-green-500 to-teal-500'>
 				<img
-					src={thumbnail}
+					src={album?.thumbnail}
 					className='w-full h-full object-cover'
 					alt='thumbnail'
 				/>
 			</div>
-			<Link to={`/album/${id}`} className='font-bold mt-2 block'>
-				{album}
+			<Link to={`/album/${album?.id}`} className='font-bold mt-2 block'>
+				{album?.album}
 			</Link>
-			{artists.map((a) => a)}
-
+			{album?.artists.map((a) => a)}
 			<span
-				onContextMenu={(e) => {
-					e.preventDefault()
-				}}
 				onClick={handlePlayAlbum}
 				className='absolute w-10 h-10 bg-green-500 flex items-center justify-center
                     rounded-full right-4 duration-300 bottom-16 opacity-0 text-black shadow-md
@@ -46,7 +44,6 @@ const AlbumItem = ({ data: { id, artists, album, thumbnail, playList } }) => {
 			>
 				<FaPlay />
 			</span>
-			<span></span>
 		</li>
 	)
 }

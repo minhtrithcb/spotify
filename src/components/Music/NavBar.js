@@ -3,12 +3,14 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 
-const NavBar = () => {
+const NavBar = ({ toggleSideBar }) => {
 	const navi = useNavigate()
+
 	return (
 		<div
-			className='bg-gray-800 text-white flex justify-between py-4 px-4 
-			fixed top-0 right-0 w-full lg:w-[calc(100%_-_320px)] z-50 h-20 items-center'
+			className={`bg-gray-800 text-white flex justify-between py-4 px-4 w-full
+			${toggleSideBar ? 'lg:w-[calc(100%_-_80px)]' : 'lg:w-[calc(100%_-_320px)]'}
+			fixed top-0 right-0 z-50 h-20 items-center`}
 		>
 			<div className='flex '>
 				<span

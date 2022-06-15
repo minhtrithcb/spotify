@@ -155,3 +155,7 @@ body::-webkit-scrollbar {
     transform: rotate(360deg);
   }
 }
+
+.navbar:hover .btn__navbar {
+  opacity: 1;
+}
