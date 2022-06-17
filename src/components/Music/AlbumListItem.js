@@ -2,7 +2,7 @@ import React from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { subString } from '../../helper/helper'
-import { setMusic } from '../../redux/slice/musicSlide'
+import { setMusic } from '../../redux/slice/musicSlice'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 import Wave from '../common/Wave'
 
@@ -14,14 +14,36 @@ const AlbumListItem = ({
 	followByIndexSongRef,
 }) => {
 	const dispatch = useDispatch()
-	const { albumInfo, searchPlayList, currentSong, isPlaying, indexSong } =
-		useSelector((state) => state.music)
+	const {
+		albumInfo,
+		searchPlayList,
+		currentSong,
+		isPlaying,
+		indexSong,
+		cursorIndexSong,
+	} = useSelector((state) => state.music)
 
-	// highLight by searchPlayList
-	const highLightSongSearch = (music) => {
-		return searchPlayList?.find((i) => i.title.includes(music))
+	// highLight all by searchPlayList
+	const highLightAllSongSearch = (music) => {
+		return searchPlayList?.find((song) => song.title.includes(music))
 			? ' bg-teal-600'
 			: ''
+	}
+	// highLight only index cursor by searchPlayList
+	const highLightSongSearch = (music) => {
+		return searchPlayList?.find(
+			(song, index) =>
+				song.title.includes(music) && index === cursorIndexSong
+		)
+			? ' bg-teal-700'
+			: ''
+	}
+
+	// check index to set ref
+	const checkHighLightIdx = () => {
+		return searchPlayList?.find(
+			(v, index) => v.title === music.title && index === cursorIndexSong
+		)
 	}
 
 	// User chose song in album set playList & index Song
@@ -31,6 +53,7 @@ const AlbumListItem = ({
 				albumPlayList: albumInfo?.playList,
 				currentSong: music,
 				indexSong: index,
+				playListQueue: albumInfo?.playList,
 			})
 		)
 	}
@@ -59,12 +82,9 @@ const AlbumListItem = ({
 				className={`cursor-pointer duration-300 hover:bg-slate-700
 			    ${currentSong?.title === music.title ? 'bg-slate-700' : ''}
 			    ${highLightSongSearch(music.title)}
+			    ${highLightAllSongSearch(music.title)}
 			`}
-				ref={
-					searchPlayList[0]?.title === music.title
-						? foundSongRef
-						: null
-				}
+				ref={checkHighLightIdx() ? foundSongRef : null}
 				onClick={handleChoseMusic}
 			>
 				<td

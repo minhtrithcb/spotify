@@ -1,22 +1,32 @@
 import React from 'react'
 import { FaPlay } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setAlbum, setMusic } from '../../redux/slice/musicSlide'
+import {
+	setAlbum,
+	setMusic,
+	setPlayListShuffle,
+} from '../../redux/slice/musicSlice'
 
 const AlbumItem = ({ album }) => {
 	const dispatch = useDispatch()
+	const { isShuffle } = useSelector((state) => state.music)
 
 	const handlePlayAlbum = () => {
 		dispatch(setAlbum(album))
-
 		dispatch(
 			setMusic({
 				albumPlayList: album?.playList,
 				currentSong: album?.playList[0],
 				indexSong: 0,
+				playListQueue: album?.playList,
 			})
 		)
+		// the first dispatch to cleart list the secont to set again
+		if (isShuffle) {
+			dispatch(setPlayListShuffle())
+			dispatch(setPlayListShuffle())
+		}
 	}
 
 	return (

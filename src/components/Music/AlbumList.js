@@ -3,20 +3,22 @@ import { BsFillGearFill } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 import AlbumListItem from './AlbumListItem'
 
-const AlbumList = () => {
-	const { albumInfo, searchPlayList, indexSong } = useSelector(
-		(state) => state.music
-	)
+const AlbumList = ({ list }) => {
+	const { searchPlayList, indexSong, isOpenDisk, cursorIndexSong } =
+		useSelector((state) => state.music)
 	const tbodyRef = useRef(null)
 	const foundSongRef = useRef(null)
 	const followByIndexSongRef = useRef(null)
 
-	// trigger scroll every searchPlayList change
+	// trigger scroll every searchPlayList & cursorIndexSong change
 	useEffect(() => {
 		if (foundSongRef.current) {
-			foundSongRef.current.scrollIntoView({ behavior: 'smooth' })
+			foundSongRef.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+			})
 		}
-	}, [searchPlayList])
+	}, [searchPlayList, cursorIndexSong])
 
 	// trigger scroll every change song
 	useEffect(() => {
@@ -26,7 +28,7 @@ const AlbumList = () => {
 				block: 'center',
 			})
 		}
-	}, [indexSong])
+	}, [indexSong, isOpenDisk])
 
 	return (
 		<div className='w-full'>
@@ -50,7 +52,7 @@ const AlbumList = () => {
 				</thead>
 				<tbody className='h-4'></tbody>
 				<tbody ref={tbodyRef}>
-					{albumInfo?.playList.map((music, index) => (
+					{list?.map((music, index) => (
 						<AlbumListItem
 							key={index}
 							music={music}
@@ -59,99 +61,6 @@ const AlbumList = () => {
 							foundSongRef={foundSongRef}
 							followByIndexSongRef={followByIndexSongRef}
 						/>
-						// <React.Fragment key={index}>
-						// 	<tr
-						// 		className={`cursor-pointer duration-300 hover:bg-slate-700
-						// 			${
-						// 				searchPlayList?.find((i) =>
-						// 					i.title.includes(music.title)
-						// 				)
-						// 					? ' bg-teal-600'
-						// 					: ''
-						// 			}
-						// 		${currentSong?.title === music.title ? 'bg-slate-700' : ''}
-						// 	`}
-						// 		ref={
-						// 			searchPlayList[0]?.title === music.title
-						// 				? foundSongRef
-						// 				: null
-						// 		}
-						// 		onClick={() => handleChoseMusic(music, index)}
-						// 	>
-						// 		{/* // id is not unique so use title  */}
-						// 		<td
-						// 			className='w-12 text-center rounded-l-lg'
-						// 			ref={
-						// 				index === indexSong
-						// 					? followByIndexSongRef
-						// 					: null
-						// 			}
-						// 		>
-						// 			{index + 1}
-						// 		</td>
-						// 		<td className='py-4'>
-						// 			<div className='flex items-center'>
-						// 				{currentSong?.title === music.title &&
-						// 				isPlaying ? (
-						// 					<div className='w-10 h-10 flex mr-4 flex-shrink-0'>
-						// 						<Wave />
-						// 					</div>
-						// 				) : (
-						// 					<div
-						// 						className='rounded block mr-4 bg-gradient-to-r
-						// 						from-green-500 to-teal-500 w-10 h-10 flex-shrink-0'
-						// 					></div>
-						// 				)}
-						// 				<div>
-						// 					<p
-						// 						title={music?.title}
-						// 						className='hidden sm:block whitespace-nowrap w-[300px] overflow-hidden'
-						// 					>
-						// 						{subString(music?.title, 30)}
-						// 					</p>
-						// 					<p
-						// 						title={music?.title}
-						// 						className='block sm:hidden whitespace-nowrap w-[300px] overflow-hidden'
-						// 					>
-						// 						{subString(music?.title, 20)}
-						// 					</p>
-						// 					<small>{music?.artists}</small>
-						// 				</div>
-						// 			</div>
-						// 		</td>
-						// 		<td className='opacity-0 xl:opacity-100'>
-						// 			{albumInfo?.album}
-						// 		</td>
-						// 		<td className='opacity-0 lg:opacity-100'>
-						// 			3:20
-						// 		</td>
-						// 		<td className='w-12 rounded-r-lg text-right sm:text-left pr-4'>
-						// 			<div className='w-full flex justify-center'>
-						// 				<Dropdown
-						// 					positionY={
-						// 						index ===
-						// 						albumInfo?.playList.length - 1
-						// 							? true
-						// 							: false
-						// 					}
-						// 					title={
-						// 						<div className='w-8 h-8 flex justify-center items-center hover:bg-slate-600 duration-300 rounded-full'>
-						// 							<BsThreeDotsVertical />
-						// 						</div>
-						// 					}
-						// 					getHoverItem={onHoverItem}
-						// 				>
-						// 					<DropdownItem>
-						// 						Add to playlist
-						// 					</DropdownItem>
-
-						// 					<DropdownItem>Share</DropdownItem>
-						// 				</Dropdown>
-						// 			</div>
-						// 		</td>
-						// 	</tr>
-						// 	<tr className='h-4'></tr>
-						// </React.Fragment>
 					))}
 				</tbody>
 			</table>

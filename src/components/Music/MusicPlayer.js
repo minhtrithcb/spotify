@@ -21,7 +21,9 @@ import {
 	setIsPlaying,
 	setMusic,
 	setIsMute,
-} from '../../redux/slice/musicSlide'
+	setPlayListShuffle,
+	setIsOpenDisk,
+} from '../../redux/slice/musicSlice'
 import useResize from '../../hooks/useResize'
 import AlbumDisk from './AlbumDisk'
 
@@ -32,7 +34,6 @@ const MusicPlayer = () => {
 	const volumeRef = useRef(null)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
-	const [isOpenMobiePlayer, setIsOpenMobiePlayer] = useState(false)
 	const {
 		albumPlayList,
 		indexSong,
@@ -40,7 +41,11 @@ const MusicPlayer = () => {
 		currentSong,
 		togglePlay,
 		isMute,
+		isShuffle,
+		playListShuffle,
 		isLoop,
+		isOpenDisk,
+		playListQueue,
 	} = useSelector((state) => state.music)
 	// Force play
 	const forcePlay = useCallback(() => {
@@ -49,20 +54,21 @@ const MusicPlayer = () => {
 	}, [dispatch])
 	// when breakpoin 1024px auto hide isOpenMobiePlayer
 	useResize(1024, () => {
-		setIsOpenMobiePlayer(false)
+		dispatch(setIsOpenDisk(false))
 	})
-	// Set up
+
+	// Set up set src and play it
 	useEffect(() => {
 		const setupfirstSong = () => {
-			if (albumPlayList.length !== 0) {
-				setUpSong(albumPlayList[indexSong])
+			if (playListQueue.length !== 0) {
+				setUpSong(playListQueue[indexSong])
 				forcePlay()
 			}
 		}
 		setupfirstSong()
-	}, [indexSong, albumPlayList, forcePlay])
+	}, [indexSong, playListQueue, forcePlay, playListShuffle])
 
-	// toggle play every togglePlay change
+	// toggle play every togglePlay change (trigger in AlbumPlayer)
 	useEffect(() => {
 		// prevent first load
 		if (albumPlayList.length !== 0) {
@@ -105,8 +111,8 @@ const MusicPlayer = () => {
 	const calcRemain = () => {
 		calTime('currentTime', (minute, second) => {
 			setSongRemaining(
-				`${minute < 9 ? `0${minute}` : minute} : ${
-					second < 9 ? `0${second}` : second
+				`${minute < 10 ? `0${minute}` : minute} : ${
+					second < 10 ? `0${second}` : second
 				}`
 			)
 		})
@@ -116,8 +122,8 @@ const MusicPlayer = () => {
 	const calcDuration = () => {
 		calTime('duration', (minute, second) => {
 			setSongDuration(
-				`${minute < 9 ? `0${minute}` : minute} : ${
-					second < 9 ? `0${second}` : second
+				`${minute < 10 ? `0${minute}` : minute} : ${
+					second < 10 ? `0${second}` : second
 				}`
 			)
 		})
@@ -130,10 +136,11 @@ const MusicPlayer = () => {
 		dispatch(
 			setMusic({
 				albumPlayList,
+				playListQueue,
 				currentSong: condition
-					? albumPlayList[albumPlayList.length - 1]
-					: albumPlayList[indexSong - 1],
-				indexSong: condition ? albumPlayList.length - 1 : indexSong - 1,
+					? playListQueue[playListQueue.length - 1]
+					: playListQueue[indexSong - 1],
+				indexSong: condition ? playListQueue.length - 1 : indexSong - 1,
 			})
 		)
 	}
@@ -141,13 +148,14 @@ const MusicPlayer = () => {
 	// Next song
 	const handleNext = () => {
 		resetSong()
-		const condition = albumPlayList.length - 1 === indexSong
+		const condition = playListQueue.length - 1 === indexSong
 		dispatch(
 			setMusic({
 				albumPlayList,
+				playListQueue,
 				currentSong: condition
-					? albumPlayList[0]
-					: albumPlayList[indexSong + 1],
+					? playListQueue[0]
+					: playListQueue[indexSong + 1],
 				indexSong: condition ? 0 : indexSong + 1,
 			})
 		)
@@ -170,7 +178,7 @@ const MusicPlayer = () => {
 		handleNext()
 	}
 
-	// On change Input Range
+	// On change Music Range
 	const handleChageRange = (e) => {
 		const currentValue = e.target.value
 		progessBarRef.current.value = currentValue
@@ -179,6 +187,8 @@ const MusicPlayer = () => {
 
 	// Change Volume
 	const handleChageVolume = (e) => {
+		// if adready mute, unmute that
+		if (isMute) dispatch(setIsMute(false))
 		audioRef.current.volume = e.target.value / 100
 	}
 	// Loop single song
@@ -200,13 +210,15 @@ const MusicPlayer = () => {
 		dispatch(setIsMute(!isMute))
 	}
 
+	// Toggle shuffle song
+	const handleShuffle = () => {
+		dispatch(setPlayListShuffle())
+	}
+
 	return (
 		<div>
 			{/* // Mobile Player  */}
-			<AlbumDisk
-				isOpen={isOpenMobiePlayer}
-				setIsOpen={setIsOpenMobiePlayer}
-			/>
+			<AlbumDisk />
 			<div
 				className={`${albumPlayList.length !== 0 ? 'grid' : 'hidden'}
 			fixed text-white bg-gray-800  border-gray-700 border-t w-full h-40 lg:h-32
@@ -241,17 +253,11 @@ const MusicPlayer = () => {
 							)}
 						</div>
 						<div
-							className='cursor-pointer lg:hidden duration-300 hover:bg-slate-500 
+							className='cursor-pointer lg:hidxden duration-300 hover:bg-slate-500 
 							w-8 h-8 rounded-full flex items-center justify-center'
-							onClick={() =>
-								setIsOpenMobiePlayer((prev) => !prev)
-							}
+							onClick={() => dispatch(setIsOpenDisk(!isOpenDisk))}
 						>
-							{!isOpenMobiePlayer ? (
-								<BsChevronUp />
-							) : (
-								<BsChevronDown />
-							)}
+							{!isOpenDisk ? <BsChevronUp /> : <BsChevronDown />}
 						</div>
 					</div>
 				</div>
@@ -259,13 +265,12 @@ const MusicPlayer = () => {
 				<div className='row-span-1 col-span-3 lg:col-auto'>
 					<div className='flex justify-between items-center lg:w-3/4 mx-auto lg:my-2'>
 						<span
-							className='w-8 h-8 rounded-full  text-white cursor-pointer 
-                        hover:bg-green-500 transition-all bg-transparent flex items-center justify-center'
+							onClick={handleShuffle}
+							className={`w-8 h-8 rounded-full  text-white cursor-pointer 
+							${isShuffle ? 'bg-green-500' : 'bg-transparent'}
+                        	hover:bg-green-500 transition-all flex items-center justify-center`}
 						>
-							<BsShuffle
-								fontSize={'1.2em'}
-								title='Shuffle song'
-							/>
+							<BsShuffle title='Shuffle song' />
 						</span>
 						<span
 							onClick={handlePrev}
@@ -308,15 +313,12 @@ const MusicPlayer = () => {
 							}
                         hover:bg-green-500 transition-all flex items-center justify-center `}
 						>
-							<MdOutlineRepeat
-								fontSize={'1.2em'}
-								title='Loop song'
-							/>
+							<MdOutlineRepeat title='Loop song' />
 						</span>
 					</div>
 					{/* // Music range  */}
 					<div className={`grid grid-cols-8 py-2`}>
-						<span className='text-xs my-[2px]'>
+						<span className='text-xs my-[2px] select-none'>
 							{songRemaining}
 						</span>
 						<input
@@ -327,7 +329,7 @@ const MusicPlayer = () => {
 							defaultValue={0}
 							onChange={handleChageRange}
 						/>
-						<span className='text-right text-xs my-[2px]'>
+						<span className='text-right text-xs my-[2px] select-none'>
 							{songDuration}
 						</span>
 					</div>

@@ -83,7 +83,7 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 							<li
 								className={`flex flex-col text-sm items-center py-2 px-4 duration-700 
 								hover:bg-slate-700 cursor-pointer rounded ${
-									active(Item.path) ? `bg-green-500` : null
+									active(Item.path) ? `bg-green-600` : null
 								}`}
 							>
 								<Item.Icon className='text-lg' />

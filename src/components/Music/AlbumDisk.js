@@ -1,19 +1,18 @@
 import React, { useRef, memo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import Tab, { TabItem } from '../common/Tab'
 import AlbumList from './AlbumList'
 import MusicDiskInfo from './MusicDiskInfo'
 
-const AlbumDisk = ({ isOpen }) => {
+const AlbumDisk = () => {
+	const { isOpenDisk, playListQueue } = useSelector((state) => state.music)
 	const nodeRef = useRef(null)
 	const [index, setIndex] = useState(1)
-	const onChoseTab = (index) => {
-		console.log(index)
-	}
 
 	return (
 		<CSSTransition
-			in={isOpen}
+			in={isOpenDisk}
 			timeout={300}
 			classNames='slideY'
 			unmountOnExit
@@ -24,7 +23,7 @@ const AlbumDisk = ({ isOpen }) => {
 				ref={nodeRef}
 			>
 				<div className='flex justify-between items-center w-full h-10 bg-slate-700 z-50 rounded-md mb-4'>
-					<Tab onChoseTab={onChoseTab}>
+					<Tab>
 						<TabItem
 							title={'Playing'}
 							onClick={() => setIndex(1)}
@@ -44,7 +43,7 @@ const AlbumDisk = ({ isOpen }) => {
 				</div>
 				{index === 1 && <MusicDiskInfo />}
 				<div className='pr-2 max-h-[500px] mb-8 overflow-y-auto scrollBar overflow-x-hidden'>
-					{index === 2 && <AlbumList />}
+					{index === 2 && <AlbumList list={playListQueue} />}
 				</div>
 			</div>
 		</CSSTransition>

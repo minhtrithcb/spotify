@@ -10,11 +10,12 @@ import Dropdown, { DropdownItem } from '../common/Dropdown'
 import useOutsite from '../../hooks/useOutsite'
 import { useSelector, useDispatch } from 'react-redux'
 import {
+	setCursorIndexSong,
 	setIsPlaying,
 	setMusic,
 	setSearchPlayList,
 	setTogglePlay,
-} from '../../redux/slice/musicSlide'
+} from '../../redux/slice/musicSlice'
 
 const AlbumPlayer = () => {
 	const [isOpenSearch, setIsOpenSearch] = useState(false)
@@ -28,6 +29,8 @@ const AlbumPlayer = () => {
 		togglePlay,
 		currentSong,
 		albumPlayList,
+		playListQueue,
+		cursorIndexSong,
 		searchPlayList,
 	} = useSelector((state) => state.music)
 	const [searchInput, setSearchInput] = useState('')
@@ -58,6 +61,7 @@ const AlbumPlayer = () => {
 		dispatch(
 			setMusic({
 				albumPlayList: albumInfo?.playList,
+				playListQueue: albumInfo?.playList,
 				currentSong: albumInfo?.playList[0],
 				indexSong: 0,
 			})
@@ -90,27 +94,47 @@ const AlbumPlayer = () => {
 		}
 	}
 
-	// Handle Keydown enter
+	// Handle Keydown
 	const handleKeyDown = (e) => {
+		// 13 is enter key
 		if (e.keyCode === 13) {
 			const found = searchPlayList?.filter((i) =>
 				i.title.toLowerCase().includes(searchInput.toLowerCase())
 			)
-			const selectedSong = found[0]
-			const indexSong = albumInfo?.playList.findIndex((song) => {
+			const selectedSong = found[cursorIndexSong]
+			const indexSong = playListQueue.findIndex((song) => {
 				return song === selectedSong
 			})
 			if (indexSong !== -1) {
 				dispatch(
 					setMusic({
 						albumPlayList: albumInfo?.playList,
-						currentSong: albumInfo?.playList[indexSong],
+						playListQueue,
+						currentSong: playListQueue[indexSong],
 						indexSong: indexSong,
 					})
 				)
 				setSearchInput('')
 				dispatch(setSearchPlayList([]))
 			}
+		}
+
+		// Key down
+		if (e.keyCode === 40) {
+			const idxSearch =
+				cursorIndexSong >= searchPlayList.length - 1
+					? 0
+					: cursorIndexSong + 1
+			dispatch(setCursorIndexSong(idxSearch))
+		}
+
+		// Key up
+		if (e.keyCode === 38) {
+			const idxSearch =
+				cursorIndexSong === 0
+					? searchPlayList.length - 1
+					: cursorIndexSong - 1
+			dispatch(setCursorIndexSong(idxSearch))
 		}
 	}
 
