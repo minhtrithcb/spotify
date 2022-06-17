@@ -13,6 +13,7 @@ import {
 	setCursorIndexSong,
 	setIsPlaying,
 	setMusic,
+	setPlayListShuffle,
 	setSearchPlayList,
 	setTogglePlay,
 } from '../../redux/slice/musicSlice'
@@ -29,7 +30,7 @@ const AlbumPlayer = () => {
 		togglePlay,
 		currentSong,
 		albumPlayList,
-		playListQueue,
+		isShuffle,
 		cursorIndexSong,
 		searchPlayList,
 	} = useSelector((state) => state.music)
@@ -98,19 +99,21 @@ const AlbumPlayer = () => {
 	const handleKeyDown = (e) => {
 		// 13 is enter key
 		if (e.keyCode === 13) {
+			if (isShuffle) dispatch(setPlayListShuffle())
 			const found = searchPlayList?.filter((i) =>
 				i.title.toLowerCase().includes(searchInput.toLowerCase())
 			)
 			const selectedSong = found[cursorIndexSong]
-			const indexSong = playListQueue.findIndex((song) => {
+			let indexSong = albumInfo?.playList.findIndex((song) => {
 				return song === selectedSong
 			})
+
 			if (indexSong !== -1) {
 				dispatch(
 					setMusic({
 						albumPlayList: albumInfo?.playList,
-						playListQueue,
-						currentSong: playListQueue[indexSong],
+						playListQueue: albumInfo?.playList,
+						currentSong: albumInfo?.playList[indexSong],
 						indexSong: indexSong,
 					})
 				)

@@ -1,14 +1,21 @@
 import React, { useRef, memo, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import Tab, { TabItem } from '../common/Tab'
-import AlbumList from './AlbumList'
-import MusicDiskInfo from './MusicDiskInfo'
+import AlbumDiskList from './AlbumDiskList'
+import AlbumDiskInfo from './AlbumDiskInfo'
+import useOutsite from '../../hooks/useOutsite'
+import { setIsOpenDisk } from '../../redux/slice/musicSlice'
 
 const AlbumDisk = () => {
-	const { isOpenDisk, playListQueue } = useSelector((state) => state.music)
+	const { isOpenDisk } = useSelector((state) => state.music)
 	const nodeRef = useRef(null)
+	const dispatch = useDispatch()
 	const [index, setIndex] = useState(1)
+
+	useOutsite(nodeRef, () => {
+		dispatch(setIsOpenDisk(!isOpenDisk))
+	})
 
 	return (
 		<CSSTransition
@@ -19,10 +26,12 @@ const AlbumDisk = () => {
 			nodeRef={nodeRef}
 		>
 			<div
-				className='fixed w-full h-[calc(100vh_-_240px)] p-4 flex-col items-center top-0 left-0 bg-gray-800 z-50 text-white'
+				className='fixed w-full h-[calc(100vh_-_240px)] p-4 flex-col lg:left-4 lg:overflow-y-hidden
+				lg:h-[500px] lg:bottom-36 lg:bg-slate-600 lg:top-auto lg:w-[450px] lg:rounded-lg 
+				items-center top-0 left-0 bg-gray-800 z-50 text-white '
 				ref={nodeRef}
 			>
-				<div className='flex justify-between items-center w-full h-10 bg-slate-700 z-50 rounded-md mb-4'>
+				<div className='flex justify-between items-center w-full h-10 bg-slate-700 z-50 rounded-md mb-4 '>
 					<Tab>
 						<TabItem
 							title={'Playing'}
@@ -30,7 +39,7 @@ const AlbumDisk = () => {
 							active={index === 1}
 						/>
 						<TabItem
-							title={'Play list'}
+							title={'Playlist'}
 							onClick={() => setIndex(2)}
 							active={index === 2}
 						/>
@@ -41,9 +50,10 @@ const AlbumDisk = () => {
 						/>
 					</Tab>
 				</div>
-				{index === 1 && <MusicDiskInfo />}
-				<div className='pr-2 max-h-[500px] mb-8 overflow-y-auto scrollBar overflow-x-hidden'>
-					{index === 2 && <AlbumList list={playListQueue} />}
+
+				<div className='pr-2 h-[calc(100vh_-_320px)] lg:h-[400px] overflow-y-auto scrollBar overflow-x-hidden'>
+					{index === 1 && <AlbumDiskInfo />}
+					{index === 2 && <AlbumDiskList />}
 				</div>
 			</div>
 		</CSSTransition>

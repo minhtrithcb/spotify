@@ -54,11 +54,11 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 					toggleSideBar ? 'py-8 justify-center' : 'p-8'
 				} lg:flex items-center hidden `}
 			>
-				<img src={logo} alt='logo_icon' className='w-10' />
+				<img src={logo} alt='logo_icon' className='w-10 select-none' />
 				{!toggleSideBar && (
 					<Link
 						to='/'
-						className='text-2xl font-semibold text-green-400 cursor-pointer ml-4'
+						className='text-2xl font-semibold text-green-400 cursor-pointer ml-4 select-none'
 					>
 						Spotify
 					</Link>
@@ -101,7 +101,7 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 					<div key={Item.id}>
 						<Link to={`${Item.path}`} title={Item.text}>
 							<li
-								className={`flex items-center px-4 duration-700 
+								className={`flex items-center px-4 duration-700 select-none
 								hover:bg-slate-700 cursor-pointer rounded group
 								${toggleSideBar ? 'mb-10 py-4' : 'mb-2 py-2'}
 								${active(Item.path) && `bg-slate-700`}`}

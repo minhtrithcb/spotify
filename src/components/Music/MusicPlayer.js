@@ -191,6 +191,7 @@ const MusicPlayer = () => {
 		if (isMute) dispatch(setIsMute(false))
 		audioRef.current.volume = e.target.value / 100
 	}
+
 	// Loop single song
 	const handleLoopSong = (e) => {
 		dispatch(setIsLoop(!isLoop))
@@ -214,6 +215,10 @@ const MusicPlayer = () => {
 	const handleShuffle = () => {
 		dispatch(setPlayListShuffle())
 	}
+
+	// useEffect(() => {
+
+	// }, [musicVolume])
 
 	return (
 		<div>

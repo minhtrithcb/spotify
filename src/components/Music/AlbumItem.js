@@ -2,6 +2,7 @@ import React from 'react'
 import { FaPlay } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { subString } from '../../helper/helper'
 import {
 	setAlbum,
 	setMusic,
@@ -41,10 +42,14 @@ const AlbumItem = ({ album }) => {
 					alt='thumbnail'
 				/>
 			</div>
-			<Link to={`/album/${album?.id}`} className='font-bold mt-2 block'>
-				{album?.album}
+			<Link
+				to={`/album/${album?.id}`}
+				className='font-bolxd mt-2 block text-sm md:text-base whitespace-nowrap overflow-hidden'
+				title={album?.album}
+			>
+				{album?.album && subString(album?.album, 20)}
 			</Link>
-			{album?.artists.map((a) => a)}
+			<small>{album?.artists.map((a) => a)}</small>
 			<span
 				onClick={handlePlayAlbum}
 				className='absolute w-10 h-10 bg-green-500 flex items-center justify-center

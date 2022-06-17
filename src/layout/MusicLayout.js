@@ -33,7 +33,7 @@ const MusicLayout = () => {
 			/>
 			<div
 				className={`overflow-y-auto overflow-x-hidden scrollBar pt-20
-				${currentSong !== null && 'pb-40'} pr-1 bg-slate-800 
+				${currentSong !== null && 'pb-48'} pr-1 bg-slate-800 
 				${toggleSideBar ? 'lg:ml-20' : 'lg:ml-80'}  h-[calc(100%_-_5rem)] lg:h-full`}
 			>
 				<Outlet />
