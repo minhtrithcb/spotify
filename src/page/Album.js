@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import AlbumBanner from './AlbumBanner'
-import AlbumList from './AlbumList'
-import AlbumPlayer from './AlbumPlayer'
-import { Album as list } from '../../Db/Album'
+import AlbumBanner from '../components/Album/AlbumBanner'
+import AlbumList from '../components/Album/AlbumList'
+import AlbumPlayer from '../components/Album/AlbumPlayer'
+import { Album as list } from '../Db/Album'
 import { useDispatch } from 'react-redux'
-import { setAlbum } from '../../redux/slice/musicSlide'
+import { setAlbum } from '../redux/slice/musicSlice'
 
 const Album = () => {
 	const { id } = useParams()
-	const navi = useNavigate()
+	const navigate = useNavigate()
 	const dispatch = useDispatch()
 
+	// Get album by id
 	useEffect(() => {
 		const found = list.find((item) => item.id === id)
-		if (!found) return navi('/not-found', { replace: true })
+		if (!found) return navigate('/not-found', { replace: true })
 		dispatch(setAlbum(found))
-	}, [id, dispatch, navi])
+	}, [id, dispatch, navigate])
 
 	return (
 		<div className='text-white w-full p-2 lg:p-4'>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import MusicPlayer from '../components/Music/MusicPlayer'
-import Navbar from '../components/Music/NavBar'
-import SideBar from '../components/Music/SideBar'
+import MusicPlayer from '../../components/Player/MusicPlayer'
+import Navbar from './NavBar'
+import SideBar from './SideBar'
 
 const MusicLayout = () => {
 	const { currentSong } = useSelector((state) => state.music)
@@ -33,7 +33,7 @@ const MusicLayout = () => {
 			/>
 			<div
 				className={`overflow-y-auto overflow-x-hidden scrollBar pt-20
-				${currentSong !== null && 'pb-40'} pr-1 bg-slate-800 
+				${currentSong !== null && 'pb-48'} pr-1 bg-slate-800 
 				${toggleSideBar ? 'lg:ml-20' : 'lg:ml-80'}  h-[calc(100%_-_5rem)] lg:h-full`}
 			>
 				<Outlet />

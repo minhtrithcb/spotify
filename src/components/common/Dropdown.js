@@ -9,24 +9,29 @@ const Dropdown = ({
 	styleDropdown,
 	positionY,
 	positionX,
-	getHoverItem,
+	getHoverStatus, // recive user click this element
 }) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const menuRef = useRef(null)
+
+	// Click outsite dropdown
 	useOutsite(menuRef, () => {
-		getHoverItem && getHoverItem(null, true)
+		getHoverStatus && getHoverStatus(false)
 		setIsOpen(false)
 	})
+
+	// On click on dropdown button
+	const handleClick = (e) => {
+		e.stopPropagation()
+		getHoverStatus && getHoverStatus(true)
+		setIsOpen((prev) => !prev)
+	}
 
 	return (
 		<div className='relative flex items-center'>
 			<button
 				type='button'
-				onClick={(e) => {
-					e.stopPropagation()
-					getHoverItem && getHoverItem(e.target, false)
-					setIsOpen((prev) => !prev)
-				}}
+				onClick={handleClick}
 				className={`z-10 ${styleBtn}`}
 			>
 				{title || 'Title'}
@@ -39,11 +44,11 @@ const Dropdown = ({
 				nodeRef={menuRef}
 			>
 				<div
-					className={`bg-gray-700 z-20  absolute ${
-						positionX ? 'left-0' : 'right-0'
-					}
-					${positionY ? 'bottom-0' : 'top-14'} min-w-[200px]
-                    cursor-pointer p-2 rounded-md shadow-xl ${styleDropdown}`}
+					className={`bg-gray-700 z-20  absolute min-w-[200px]
+                    cursor-pointer p-2 rounded-md shadow-xl 
+					${positionX ? 'left-0' : 'right-0'}
+					${positionY ? 'bottom-0' : 'top-14'} 
+					${styleDropdown}`}
 					ref={menuRef}
 				>
 					<ul>{children}</ul>
@@ -58,9 +63,7 @@ export const DropdownItem = ({ style, children }) => {
 		<li
 			className={`p-2  duration-300 rounded-md hover:bg-slate-600	
             flex items-center ${style}`}
-			onClick={(e) => {
-				e.stopPropagation()
-			}}
+			onClick={(e) => e.stopPropagation()}
 		>
 			{children}
 		</li>

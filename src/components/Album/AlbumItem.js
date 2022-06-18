@@ -1,22 +1,33 @@
 import React from 'react'
 import { FaPlay } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setAlbum, setMusic } from '../../redux/slice/musicSlide'
+import { subString } from '../../helper/helper'
+import {
+	setAlbum,
+	setMusic,
+	setPlayListShuffle,
+} from '../../redux/slice/musicSlice'
 
 const AlbumItem = ({ album }) => {
 	const dispatch = useDispatch()
+	const { isShuffle } = useSelector((state) => state.music)
 
 	const handlePlayAlbum = () => {
 		dispatch(setAlbum(album))
-
 		dispatch(
 			setMusic({
 				albumPlayList: album?.playList,
 				currentSong: album?.playList[0],
 				indexSong: 0,
+				playListQueue: album?.playList,
 			})
 		)
+		// the first dispatch to cleart list the secont to set again
+		if (isShuffle) {
+			dispatch(setPlayListShuffle())
+			dispatch(setPlayListShuffle())
+		}
 	}
 
 	return (
@@ -31,10 +42,14 @@ const AlbumItem = ({ album }) => {
 					alt='thumbnail'
 				/>
 			</div>
-			<Link to={`/album/${album?.id}`} className='font-bold mt-2 block'>
-				{album?.album}
+			<Link
+				to={`/album/${album?.id}`}
+				className='font-bolxd mt-2 block text-sm md:text-base whitespace-nowrap overflow-hidden'
+				title={album?.album}
+			>
+				{album?.album && subString(album?.album, 20)}
 			</Link>
-			{album?.artists.map((a) => a)}
+			<small>{album?.artists.map((a) => a)}</small>
 			<span
 				onClick={handlePlayAlbum}
 				className='absolute w-10 h-10 bg-green-500 flex items-center justify-center

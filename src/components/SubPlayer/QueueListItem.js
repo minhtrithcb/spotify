@@ -1,56 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { subString } from '../../helper/helper'
-import { setMusic } from '../../redux/slice/musicSlide'
+import { setMusic } from '../../redux/slice/musicSlice'
 import Dropdown, { DropdownItem } from '../common/Dropdown'
 import Wave from '../common/Wave'
 
-const AlbumListItem = ({
-	music,
-	index,
-	tbodyRef,
-	foundSongRef,
-	followByIndexSongRef,
-}) => {
+const QueueListItem = ({ music, index, followByIndexSongRef }) => {
 	const dispatch = useDispatch()
-	const { albumInfo, searchPlayList, currentSong, isPlaying, indexSong } =
-		useSelector((state) => state.music)
+	const [activeClickDropdown, setactiveClickDropdown] = useState(false)
+	const { albumInfo, currentSong, isPlaying, indexSong } = useSelector(
+		(state) => state.music
+	)
 
-	// highLight by searchPlayList
-	const highLightSongSearch = (music) => {
-		return searchPlayList?.find((i) => i.title.includes(music))
-			? ' bg-teal-600'
-			: ''
-	}
-
-	// User chose song in album set playList & index Song
+	// // User chose song in album set playList & index Song
 	const handleChoseMusic = () => {
 		dispatch(
 			setMusic({
 				albumPlayList: albumInfo?.playList,
 				currentSong: music,
 				indexSong: index,
+				playListQueue: albumInfo?.playList,
 			})
 		)
 	}
 
 	// Add hover class on click
-	const onHoverItem = (e, clear) => {
-		// if user not chose clear all
-		if (clear) return removeTbodyClass()
-		if (e !== null) {
-			const trElement = e.closest('tr')
-			removeTbodyClass()
-			trElement.classList.add('bg-slate-700')
-		}
-	}
-
-	const removeTbodyClass = () => {
-		for (let i = 0; i < tbodyRef.current.children.length; i++) {
-			const element = tbodyRef.current.children[i]
-			element.classList.remove('bg-slate-700')
-		}
+	const onGetHoverStatus = (isClick) => {
+		setactiveClickDropdown(isClick)
 	}
 
 	return (
@@ -58,13 +35,7 @@ const AlbumListItem = ({
 			<tr
 				className={`cursor-pointer duration-300 hover:bg-slate-700
 			    ${currentSong?.title === music.title ? 'bg-slate-700' : ''}
-			    ${highLightSongSearch(music.title)}
-			`}
-				ref={
-					searchPlayList[0]?.title === music.title
-						? foundSongRef
-						: null
-				}
+			    ${activeClickDropdown ? 'bg-slate-700' : ''}`}
 				onClick={handleChoseMusic}
 			>
 				<td
@@ -82,7 +53,7 @@ const AlbumListItem = ({
 						) : (
 							<div
 								className='rounded block mr-4 bg-gradient-to-r 
-                        from-green-500 to-teal-500 w-10 h-10 flex-shrink-0'
+                        		from-green-500 to-teal-500 w-10 h-10 flex-shrink-0'
 							></div>
 						)}
 						<div>
@@ -102,8 +73,7 @@ const AlbumListItem = ({
 						</div>
 					</div>
 				</td>
-				<td className='opacity-0 xl:opacity-100'>{albumInfo?.album}</td>
-				<td className='opacity-0 lg:opacity-100'>3:20</td>
+
 				<td className='w-12 rounded-r-lg text-right sm:text-left pr-4'>
 					<div className='w-full flex justify-center'>
 						<Dropdown
@@ -117,7 +87,7 @@ const AlbumListItem = ({
 									<BsThreeDotsVertical />
 								</div>
 							}
-							getHoverItem={onHoverItem}
+							getHoverStatus={onGetHoverStatus}
 						>
 							<DropdownItem>Add to playlist</DropdownItem>
 							<DropdownItem>Download</DropdownItem>
@@ -130,4 +100,4 @@ const AlbumListItem = ({
 	)
 }
 
-export default AlbumListItem
+export default QueueListItem
