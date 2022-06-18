@@ -19,7 +19,6 @@ const AlbumListItem = ({
 		searchPlayList,
 		currentSong,
 		isPlaying,
-		indexSong,
 		cursorIndexSong,
 	} = useSelector((state) => state.music)
 
@@ -89,7 +88,11 @@ const AlbumListItem = ({
 			>
 				<td
 					className='w-12 text-center rounded-l-lg'
-					ref={index === indexSong ? followByIndexSongRef : null}
+					ref={
+						currentSong?.title === music.title
+							? followByIndexSongRef
+							: null
+					}
 				>
 					{index + 1}
 				</td>

@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux'
 import AlbumListItem from './AlbumListItem'
 
 const AlbumList = ({ list }) => {
-	const { searchPlayList, indexSong, isOpenDisk, cursorIndexSong } =
-		useSelector((state) => state.music)
+	const { searchPlayList, indexSong, cursorIndexSong } = useSelector(
+		(state) => state.music
+	)
 	const tbodyRef = useRef(null)
 	const foundSongRef = useRef(null)
 	const followByIndexSongRef = useRef(null)
@@ -28,7 +29,7 @@ const AlbumList = ({ list }) => {
 				block: 'center',
 			})
 		}
-	}, [indexSong, isOpenDisk])
+	}, [indexSong])
 
 	return (
 		<div className='w-full'>

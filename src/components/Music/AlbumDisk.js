@@ -1,21 +1,14 @@
 import React, { useRef, memo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import Tab, { TabItem } from '../common/Tab'
 import AlbumDiskList from './AlbumDiskList'
 import AlbumDiskInfo from './AlbumDiskInfo'
-import useOutsite from '../../hooks/useOutsite'
-import { setIsOpenDisk } from '../../redux/slice/musicSlice'
 
 const AlbumDisk = () => {
 	const { isOpenDisk } = useSelector((state) => state.music)
 	const nodeRef = useRef(null)
-	const dispatch = useDispatch()
 	const [index, setIndex] = useState(1)
-
-	useOutsite(nodeRef, () => {
-		dispatch(setIsOpenDisk(!isOpenDisk))
-	})
 
 	return (
 		<CSSTransition

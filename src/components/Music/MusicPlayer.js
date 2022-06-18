@@ -230,6 +230,8 @@ const MusicPlayer = () => {
 			bottom-20 lg:bottom-0 left-0 z-50 grid-cols-3 px-4 gap-4 py-4 grid-rows-2 `}
 			>
 				<audio
+					preload='auto'
+					crossOrigin='Anonymous'
 					ref={audioRef}
 					onTimeUpdate={handleTimeUpdate}
 					onCanPlayThrough={handleCanplaythrough}

@@ -47,10 +47,7 @@ const AlbumDiskInfo = () => {
 				<p className='tracking-[5px] text-lg'>{currentSong?.artists}</p>
 			</div>
 
-			<div className='flex items-center my-2'>
-				<div className='p-2 cursor-pointer hover:bg-green-500 transition-all rounded-full '>
-					<BsHeart />
-				</div>
+			<div className='flex justify-center items-center my-2'>
 				<div
 					className='w-10 h-10 flex justify-center items-center cursor-pointer'
 					// onClick={handleMute}

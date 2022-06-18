@@ -4,6 +4,7 @@ import Search from './components/Search'
 import Home from './components/Music/Home'
 import Album from './components/Music/Album'
 import Library from './components/Library'
+// import Login from './components/Login'
 
 function App() {
 	return (
@@ -15,6 +16,8 @@ function App() {
 					<Route path='/your-library' element={<Library />} />
 					<Route path='/album/:id' element={<Album />} />
 				</Route>
+				{/* <Route path='/login' element={<Login />} /> */}
+
 				<Route
 					path='*'
 					element={
