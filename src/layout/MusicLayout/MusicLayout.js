@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import MusicPlayer from '../components/Music/MusicPlayer'
-import Navbar from '../components/Music/NavBar'
-import SideBar from '../components/Music/SideBar'
+import MusicPlayer from '../../components/Player/MusicPlayer'
+import Navbar from './NavBar'
+import SideBar from './SideBar'
 
 const MusicLayout = () => {
 	const { currentSong } = useSelector((state) => state.music)

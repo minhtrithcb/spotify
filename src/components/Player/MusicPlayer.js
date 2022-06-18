@@ -1,50 +1,35 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import {
-	BsFillPlayFill,
-	BsFillPauseFill,
-	BsHeart,
-	BsShuffle,
-	BsChevronUp,
-	BsChevronDown,
-} from 'react-icons/bs'
-import {
-	MdSkipNext,
-	MdSkipPrevious,
-	MdOutlineRepeat,
-	MdVolumeUp,
-	MdVolumeOff,
-} from 'react-icons/md'
+import { BsFillPlayFill, BsFillPauseFill, BsShuffle } from 'react-icons/bs'
+import { MdSkipNext, MdSkipPrevious, MdOutlineRepeat } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import { subString } from '../../helper/helper'
 import {
 	setIsLoop,
 	setIsPlaying,
 	setMusic,
-	setIsMute,
 	setPlayListShuffle,
 	setIsOpenDisk,
 } from '../../redux/slice/musicSlice'
 import useResize from '../../hooks/useResize'
-import AlbumDisk from './AlbumDisk'
+import SubPlayer from '../SubPlayer/SubPlayer'
+import PlayerInfo from './PlayerInfo'
+import PlayerVolume from './PlayerVolume'
 
 const MusicPlayer = () => {
 	const dispatch = useDispatch()
 	const progessBarRef = useRef(null)
 	const audioRef = useRef(null)
-	const volumeRef = useRef(null)
 	const [songRemaining, setSongRemaining] = useState('00 : 00')
 	const [songDuration, setSongDuration] = useState('00 : 00')
 	const {
 		albumPlayList,
 		indexSong,
-		isPlaying,
-		currentSong,
-		togglePlay,
 		isMute,
+		volume,
+		isPlaying,
+		togglePlay,
 		isShuffle,
 		playListShuffle,
 		isLoop,
-		isOpenDisk,
 		playListQueue,
 	} = useSelector((state) => state.music)
 	// Force play
@@ -83,6 +68,14 @@ const MusicPlayer = () => {
 			audioRef.current.src = music.src
 		}
 	}
+
+	// On subscribe Volume Chane
+	useEffect(() => {
+		const subscribeVolume = () => {
+			audioRef.current.volume = volume
+		}
+		subscribeVolume()
+	}, [isMute, volume])
 
 	// Toggle isPlay & if it play show pause button and otherwise ...
 	const playSong = () => {
@@ -185,13 +178,6 @@ const MusicPlayer = () => {
 		audioRef.current.currentTime = currentValue
 	}
 
-	// Change Volume
-	const handleChageVolume = (e) => {
-		// if adready mute, unmute that
-		if (isMute) dispatch(setIsMute(false))
-		audioRef.current.volume = e.target.value / 100
-	}
-
 	// Loop single song
 	const handleLoopSong = (e) => {
 		dispatch(setIsLoop(!isLoop))
@@ -202,32 +188,19 @@ const MusicPlayer = () => {
 		}
 	}
 
-	// Mute song
-	const handleMute = () => {
-		let volume
-		!isMute ? (volume = 0) : (volume = 1)
-		audioRef.current.volume = volume
-		volumeRef.current.value = volume * 100
-		dispatch(setIsMute(!isMute))
-	}
-
 	// Toggle shuffle song
 	const handleShuffle = () => {
 		dispatch(setPlayListShuffle())
 	}
 
-	// useEffect(() => {
-
-	// }, [musicVolume])
-
 	return (
 		<div>
-			{/* // Mobile Player  */}
-			<AlbumDisk />
+			{/* // Sub Player  */}
+			<SubPlayer />
 			<div
 				className={`${albumPlayList.length !== 0 ? 'grid' : 'hidden'}
-			fixed text-white bg-gray-800  border-gray-700 border-t w-full h-40 lg:h-32
-			bottom-20 lg:bottom-0 left-0 z-50 grid-cols-3 px-4 gap-4 py-4 grid-rows-2 `}
+				fixed text-white bg-gray-800  border-gray-700 border-t w-full h-40 lg:h-32
+				bottom-20 lg:bottom-0 left-0 z-50 grid-cols-3 px-4 gap-4 py-4 grid-rows-2 `}
 			>
 				<audio
 					preload='auto'
@@ -237,37 +210,8 @@ const MusicPlayer = () => {
 					onCanPlayThrough={handleCanplaythrough}
 					onEnded={handleEnded}
 				></audio>
-				{/* // Title & artist  */}
-				<div className='row-span-2 col-span-3 lg:col-auto lg:row-span-2 flex items-center justify-between sm:flex-col sm:items-start md:justify-center'>
-					<div className='flex items-center justify-between w-full'>
-						<div className='flex items-center'>
-							<div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
-							{currentSong && (
-								<div>
-									<p
-										className='text-sm md:text-base'
-										title={currentSong?.title}
-									>
-										{subString(currentSong?.title, 30)}
-									</p>
-									<p
-										className='text-xs md:text-sm'
-										title={currentSong?.artists}
-									>
-										{subString(currentSong?.artists, 30)}
-									</p>
-								</div>
-							)}
-						</div>
-						<div
-							className='cursor-pointer lg:hidxden duration-300 hover:bg-slate-500 
-							w-8 h-8 rounded-full flex items-center justify-center'
-							onClick={() => dispatch(setIsOpenDisk(!isOpenDisk))}
-						>
-							{!isOpenDisk ? <BsChevronUp /> : <BsChevronDown />}
-						</div>
-					</div>
-				</div>
+				{/* // Title, artist, btn click open sub plaper  */}
+				<PlayerInfo />
 				{/* // Control  */}
 				<div className='row-span-1 col-span-3 lg:col-auto'>
 					<div className='flex justify-between items-center lg:w-3/4 mx-auto lg:my-2'>
@@ -342,29 +286,7 @@ const MusicPlayer = () => {
 					</div>
 				</div>
 				{/* // Volume  */}
-				<div className='lg:col-auto lg:row-span-2 hidden lg:flex items-center justify-end'>
-					<div className='p-2 cursor-pointer hover:bg-green-500 transition-all rounded-full '>
-						<BsHeart />
-					</div>
-					<div
-						className='w-10 h-10 flex justify-center items-center cursor-pointer'
-						onClick={handleMute}
-					>
-						{!isMute ? (
-							<MdVolumeUp fontSize={'1.2em'} />
-						) : (
-							<MdVolumeOff fontSize={'1.2em'} />
-						)}
-					</div>
-					<input
-						type='range'
-						name='progessVolume'
-						defaultValue={100}
-						className='col-span-6 appearance-none  h-1 bg-green-400 cursor-pointer my-2 slider '
-						onChange={handleChageVolume}
-						ref={volumeRef}
-					/>
-				</div>
+				<PlayerVolume />
 			</div>
 		</div>
 	)

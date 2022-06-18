@@ -27,6 +27,7 @@ const Search = () => {
 			<input
 				type='text'
 				placeholder='Search playlist'
+				spellCheck={false}
 				className={`pl-10 h-10 duration-300 outline-none transition-all
 				bg-slate-600 rounded text-white w-full mb-4`}
 			/>

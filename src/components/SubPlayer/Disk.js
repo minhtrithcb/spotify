@@ -1,10 +1,9 @@
 import React from 'react'
 import { subString } from '../../helper/helper'
 import { useSelector } from 'react-redux'
-import { BsHeart } from 'react-icons/bs'
 import { MdVolumeUp, MdVolumeOff } from 'react-icons/md'
 
-const AlbumDiskInfo = () => {
+const Disk = () => {
 	const { albumInfo, currentSong, isPlaying } = useSelector(
 		(state) => state.music
 	)
@@ -71,4 +70,4 @@ const AlbumDiskInfo = () => {
 	)
 }
 
-export default AlbumDiskInfo
+export default Disk

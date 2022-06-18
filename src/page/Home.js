@@ -1,7 +1,7 @@
 import React from 'react'
-import { Album } from '../../Db/Album'
-import TitleBar from '../common/TitleBar'
-import AlbumItem from './AlbumItem'
+import { Album } from '../Db/Album'
+import TitleBar from '../components/common/TitleBar'
+import AlbumItem from '../components/Album/AlbumItem'
 
 const Home = () => {
 	return (

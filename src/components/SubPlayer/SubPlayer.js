@@ -2,10 +2,11 @@ import React, { useRef, memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import Tab, { TabItem } from '../common/Tab'
-import AlbumDiskList from './AlbumDiskList'
-import AlbumDiskInfo from './AlbumDiskInfo'
+import QueueList from './QueueList'
+import Disk from './Disk'
+import Lyrics from './Lyrics'
 
-const AlbumDisk = () => {
+const SubPlayer = () => {
 	const { isOpenDisk } = useSelector((state) => state.music)
 	const nodeRef = useRef(null)
 	const [index, setIndex] = useState(1)
@@ -32,7 +33,7 @@ const AlbumDisk = () => {
 							active={index === 1}
 						/>
 						<TabItem
-							title={'Playlist'}
+							title={'Queue'}
 							onClick={() => setIndex(2)}
 							active={index === 2}
 						/>
@@ -45,12 +46,13 @@ const AlbumDisk = () => {
 				</div>
 
 				<div className='pr-2 h-[calc(100vh_-_320px)] lg:h-[400px] overflow-y-auto scrollBar overflow-x-hidden'>
-					{index === 1 && <AlbumDiskInfo />}
-					{index === 2 && <AlbumDiskList />}
+					{index === 1 && <Disk />}
+					{index === 2 && <QueueList />}
+					{index === 3 && <Lyrics />}
 				</div>
 			</div>
 		</CSSTransition>
 	)
 }
 
-export default memo(AlbumDisk)
+export default memo(SubPlayer)

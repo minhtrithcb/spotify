@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux'
 import { subString } from '../../helper/helper'
@@ -9,10 +10,10 @@ import Wave from '../common/Wave'
 const AlbumListItem = ({
 	music,
 	index,
-	tbodyRef,
 	foundSongRef,
 	followByIndexSongRef,
 }) => {
+	const [activeClickDropdown, setactiveClickDropdown] = useState(false)
 	const dispatch = useDispatch()
 	const {
 		albumInfo,
@@ -58,21 +59,8 @@ const AlbumListItem = ({
 	}
 
 	// Add hover class on click
-	const onHoverItem = (e, clear) => {
-		// if user not chose clear all
-		if (clear) return removeTbodyClass()
-		if (e !== null) {
-			const trElement = e.closest('tr')
-			removeTbodyClass()
-			trElement.classList.add('bg-slate-700')
-		}
-	}
-
-	const removeTbodyClass = () => {
-		for (let i = 0; i < tbodyRef.current.children.length; i++) {
-			const element = tbodyRef.current.children[i]
-			element.classList.remove('bg-slate-700')
-		}
+	const onGetHoverStatus = (isClick) => {
+		setactiveClickDropdown(isClick)
 	}
 
 	return (
@@ -82,6 +70,7 @@ const AlbumListItem = ({
 			    ${currentSong?.title === music.title ? 'bg-slate-700' : ''}
 			    ${highLightSongSearch(music.title)}
 			    ${highLightAllSongSearch(music.title)}
+				${activeClickDropdown ? 'bg-slate-700' : ''}
 			`}
 				ref={checkHighLightIdx() ? foundSongRef : null}
 				onClick={handleChoseMusic}
@@ -140,7 +129,7 @@ const AlbumListItem = ({
 									<BsThreeDotsVertical />
 								</div>
 							}
-							getHoverItem={onHoverItem}
+							getHoverStatus={onGetHoverStatus}
 						>
 							<DropdownItem>Add to playlist</DropdownItem>
 							<DropdownItem>Download</DropdownItem>

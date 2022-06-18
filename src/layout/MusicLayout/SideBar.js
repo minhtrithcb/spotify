@@ -1,50 +1,15 @@
 import React from 'react'
-import { BsSearch, BsPlusSquare, BsHeart } from 'react-icons/bs'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import { IoBookmarksOutline, IoHomeOutline } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../../assets/images/logo128.png'
+import { NAVIGATE_LINK } from '../../router'
+
 const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
-	const MenuLink = [
-		{
-			id: 1,
-			path: '/',
-			text: 'Home',
-			Icon: IoHomeOutline,
-		},
-		{
-			id: 2,
-			path: '/search',
-			text: 'Search',
-			Icon: BsSearch,
-		},
-		{
-			id: 3,
-			path: '/your-library',
-			text: 'Your Library',
-			Icon: IoBookmarksOutline,
-		},
-		{
-			id: 4,
-			path: '/create-playlist',
-			text: 'Create Playlist',
-			Icon: BsPlusSquare,
-		},
-		{
-			id: 5,
-			path: '/liked-song',
-			text: 'Liked song',
-			Icon: BsHeart,
-		},
-	]
 	const location = useLocation()
-	const active = (path) => {
-		return location.pathname === path
-	}
+	const active = (path) => location.pathname === path
 
 	return (
 		<div
-			// w-full h-20 lg:w-80
 			className={`lg:h-screen bg-gray-800  text-white fixed w-full
 			bottom-0 border-gray-700 border-r border-t z-[999] lg:z-10 navbar
 			${toggleSideBar ? 'lg:w-20' : 'lg:w-80'}`}
@@ -77,7 +42,7 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 			</div>
 			{/* // Mobile view  */}
 			<ul className='flex lg:hidden w-full h-full justify-between items-center px-4 py-2'>
-				{MenuLink.map((Item) => (
+				{NAVIGATE_LINK.map((Item) => (
 					<div key={Item.id}>
 						<Link to={`${Item.path}`} title={Item.text}>
 							<li
@@ -97,7 +62,7 @@ const SideBar = ({ toggleSideBar, settoggleSideBar }) => {
 			</ul>
 			{/* // Desktop view  */}
 			<ul className='p-4 lg:block hidden'>
-				{MenuLink.map((Item, index) => (
+				{NAVIGATE_LINK.map((Item, index) => (
 					<div key={Item.id}>
 						<Link to={`${Item.path}`} title={Item.text}>
 							<li

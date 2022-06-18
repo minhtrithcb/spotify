@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { useNavigate } from 'react-router-dom'
-import Dropdown, { DropdownItem } from '../common/Dropdown'
+import Dropdown, { DropdownItem } from '../../components/common/Dropdown'
 
 const NavBar = ({ toggleSideBar }) => {
 	const navi = useNavigate()

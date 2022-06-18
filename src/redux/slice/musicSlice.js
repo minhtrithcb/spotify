@@ -16,6 +16,7 @@ const initialState = {
 	isMute: false, // state mute
 	isOpenDisk: false, // state mute
 	searchPlayList: [], // array contain search on playlist
+	volume: 1, // volume of the player
 }
 
 export const musicSlice = createSlice({
@@ -24,6 +25,9 @@ export const musicSlice = createSlice({
 	reducers: {
 		setAlbum: (state, action) => {
 			state.albumInfo = action.payload
+		},
+		setVolume: (state, action) => {
+			state.volume = action.payload
 		},
 		setCursorIndexSong: (state, action) => {
 			state.cursorIndexSong = action.payload
@@ -87,6 +91,7 @@ export const {
 	setIsPlaying,
 	setMusic,
 	setIsLoop,
+	setVolume,
 	setIsMute,
 	setPlayListShuffle,
 	setTogglePlay,

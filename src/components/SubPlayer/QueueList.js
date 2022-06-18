@@ -1,25 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { BsFillGearFill } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
-import AlbumListItem from './AlbumListItem'
+import QueueListItem from './QueueListItem'
 
-const AlbumList = ({ list }) => {
-	const { searchPlayList, indexSong, cursorIndexSong } = useSelector(
-		(state) => state.music
-	)
-	const tbodyRef = useRef(null)
-	const foundSongRef = useRef(null)
+const QueueList = () => {
+	const { indexSong, playListQueue } = useSelector((state) => state.music)
 	const followByIndexSongRef = useRef(null)
-
-	// trigger scroll every searchPlayList & cursorIndexSong change
-	useEffect(() => {
-		if (foundSongRef.current) {
-			foundSongRef.current.scrollIntoView({
-				behavior: 'smooth',
-				block: 'center',
-			})
-		}
-	}, [searchPlayList, cursorIndexSong])
 
 	// trigger scroll every change song
 	useEffect(() => {
@@ -37,13 +23,7 @@ const AlbumList = ({ list }) => {
 				<thead className='border-b border-b-gray-700 my-4'>
 					<tr className='text-left uppercase py-4'>
 						<th className='w-10 text-center'>#</th>
-						<th className='py-4 sm:w-2/5'>Song</th>
-						<th className='w-0 sm:w-[calc(40%_-_40px)] opacity-0 xl:opacity-100'>
-							Album
-						</th>
-						<th className='w-1/5 sm:w-[calc(40%_-_40px)] pr-4 opacity-0 lg:opacity-100'>
-							Time
-						</th>
+						<th>Song</th>
 						<th className='w-10 pr-4'>
 							<div className='w-full flex justify-center'>
 								<BsFillGearFill />
@@ -52,14 +32,12 @@ const AlbumList = ({ list }) => {
 					</tr>
 				</thead>
 				<tbody className='h-4'></tbody>
-				<tbody ref={tbodyRef}>
-					{list?.map((music, index) => (
-						<AlbumListItem
+				<tbody>
+					{playListQueue?.map((music, index) => (
+						<QueueListItem
 							key={index}
 							music={music}
 							index={index}
-							tbodyRef={tbodyRef}
-							foundSongRef={foundSongRef}
 							followByIndexSongRef={followByIndexSongRef}
 						/>
 					))}
@@ -69,4 +47,4 @@ const AlbumList = ({ list }) => {
 	)
 }
 
-export default AlbumList
+export default QueueList
