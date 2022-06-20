@@ -20,7 +20,7 @@ const SubPlayer = () => {
 			nodeRef={nodeRef}
 		>
 			<div
-				className='fixed w-full h-[calc(100vh_-_240px)] p-4 flex-col lg:left-4 lg:overflow-y-hidden
+				className='fixed w-full h-[calc(100vh_-_200px)] p-4 flex-col lg:left-4 lg:overflow-y-hidden
 				lg:h-[500px] lg:bottom-36 lg:bg-slate-600 lg:top-auto lg:w-[450px] lg:rounded-lg 
 				items-center top-0 left-0 bg-gray-800 z-50 text-white '
 				ref={nodeRef}
