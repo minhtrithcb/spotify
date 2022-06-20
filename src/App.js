@@ -3,6 +3,7 @@ import MusicLayout from './layout/MusicLayout/MusicLayout'
 import NotFound from './page/NotFound'
 import { ROUTE_MUSIC_LAYOUT } from './router'
 import { Navigate } from 'react-router-dom'
+import 'rc-slider/assets/index.css';
 
 function App() {
 	return (
