@@ -1,0 +1,55 @@
+[
+    {
+        "id": 1,
+        "name": "Individual",
+        "price": "£9.99/month after offer period",
+        "account": 1,
+        "bange": "2 month free",
+        "benefit": [
+            "Ad-free music listening",
+            "Play anywhere - even offline",
+            "On-demand playback"
+        ],
+        "term": "Terms and conditions apply. 2 months free not available for users who have already tried Premium."
+    },
+    {
+        "id": 2,
+        "name": "Duo",
+        "price": "£13.99/month after offer period",
+        "account": 2,
+        "bange": "1 month free",
+        "benefit": [
+            "2 Premium accounts for a couple under one roof",
+            "Ad-free music listening, play offline, on-demand playback"
+        ],
+        "term": "Terms and conditions apply. 1 months free not available for users who have already tried Premium."
+    },
+    {
+        "id": 3,
+        "name": "Family",
+        "price": "£16.99/month after offer period",
+        "account": 6,
+        "bange": "1 month free",
+        "benefit": [
+            "6 Premium accounts for family members living under one roof",
+            "Block explicit music",
+            "Ad-free music listening, play offline, on-demand playback",
+            "Spotify Kids: a separate app made just for kids"
+        ],
+        "term": "Terms and conditions apply. 1 months free not available for users who have already tried Premium."
+    },
+    {
+        "id": 4,
+        "name": "Student",
+        "price": "£5.99/month after offer period",
+        "account": 1,
+        "bange": "1 month free",
+        "benefit": [
+            "Special discount for eligible students in university",
+            "Ad-free music listening",
+            "Play anywhere - even offline",
+            "On-demand playback"
+        ],
+        "term": "Offer available only to students Spotify Student Discount Offer Terms and conditions apply."
+    }
+]

@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 // libray styles
 import "rc-slider/assets/index.css";
 import "swiper/css";
+// import Login from "./page/Login";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                     })}
                 </Route>
                 {/* orther route */}
+                {/* <Route path='/login' element={<Login />} /> */}
                 <Route path='/not-found' element={<NotFound />} />
                 <Route
                     path='*'

@@ -1,5 +1,5 @@
 import React from "react";
-import { Album } from "../Db/Album";
+import Album from "../Db/Album.json";
 import TitleBar from "../components/common/TitleBar";
 import AlbumItem from "../components/Album/AlbumItem";
 import Carosel from "../components/Carosel/Carosel";
