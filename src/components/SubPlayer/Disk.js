@@ -44,7 +44,7 @@ const Disk = () => {
                     {currentSong?.title && subString(currentSong?.title, 30)}
                 </h1>
                 <small
-                    className='tracking-[5px] text-lg'
+                    className='tracking-[3px] text-sm'
                     title={currentSong?.artists}
                 >
                     {subString(currentSong?.artists, 30)}

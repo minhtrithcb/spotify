@@ -20,7 +20,7 @@ Trong thư mục chính chạy
 
 ### Tính năng theo componet trong ngoặc () là chưa xong
 
--   Music Player : Nghe, tua, tới, lui, lặp, tăng giảm âm, tắt âm, mobile view disk (shuffe, liked)
+-   Music Player : Nghe, tua, tới, lui, lặp, tăng giảm âm, tắt âm, view disk, shuffe, (liked)
 
 -   Album Player: Nghe album, bật tắt trình phát, tìm kiếm highLight, enter phát khi tìm phát bài, khi tìm follow theo vị trí,
     (tải về, liked)
