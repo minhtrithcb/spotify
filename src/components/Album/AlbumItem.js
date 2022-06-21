@@ -45,7 +45,9 @@ const AlbumItem = ({ album }) => {
             </div>
             <Link
                 to={`/album/${album?.id}`}
-                className='font-bolxd mt-2 block text-sm md:text-base whitespace-nowrap overflow-hidden'
+                className='font-bolxd mt-2 block text-sm md:text-base whitespace-nowrap overflow-hidden 
+                group-hover:text-green-300
+                '
                 title={album?.album}
             >
                 {album?.album && subString(album?.album, 20)}

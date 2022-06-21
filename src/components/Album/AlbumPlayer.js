@@ -60,7 +60,7 @@ const AlbumPlayer = () => {
     };
 
     return (
-        <div className='sticky mt-2 top-0 h-14 bg-slate-800 flex items-center justify-between z-30'>
+        <div className='sticky mt-2 top-0 h-14 bg-slate-800 backdrop-blur-sm bg-slate-800/30  flex items-center justify-between z-30'>
             <div className='flex'>
                 <span
                     className='w-10 h-10 bg-green-500 flex items-center justify-center

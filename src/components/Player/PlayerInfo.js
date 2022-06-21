@@ -21,7 +21,7 @@ const PlayerInfo = () => {
                     {isPlaying ? (
                         <Wave />
                     ) : (
-                        <div className='rounded mr-4 bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
+                        <div className='rounded bg-gradient-to-r from-green-500 to-teal-500 w-10 h-10'></div>
                     )}
                     {currentSong && (
                         <div className='ml-4'>
