@@ -261,5 +261,426 @@
                 "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655609535/mp3/Besomorph_Meric_Again_-_I_Will_Survive_ft._Nito-Onna_dd0rrj.mp3"
             }
         ]
+    },
+    {
+        "id": "6",
+        "album": "DJ OKAWARI OFFICIAL",
+        "artists": ["Trivo"],
+        "thumbnail":
+            "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655867931/avatars-000138404358-sdp2xr-t500x500_jxiros.jpg",
+        "playList": [
+            {
+                "id": "1",
+                "title": "Mirage",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869075/mp3/DJ_OKAWARI_Mirage_jb4mem.mp3"
+            },
+            {
+                "id": "2",
+                "title": "Voice of Nature",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869073/mp3/DJ_OKAWARI_Voice_of_Nature_val0wa.mp3"
+            },
+            {
+                "id": "3",
+                "title": "Perfect Blue",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869072/mp3/DJ_OKAWARI_Perfect_Blue_euauhd.mp3"
+            },
+            {
+                "id": "4",
+                "title": "Lightning Moment",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869068/mp3/DJ_OKAWARI_feat.fox_capture_plan_Lightning_Moment_zrfhp4.mp3"
+            },
+            {
+                "id": "5",
+                "title": "Your Star",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869067/mp3/DJ_OKAWARI_feat._Stephanie_Your_Star_v2nn22.mp3"
+            },
+            {
+                "id": "6",
+                "title": "Be There",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869064/mp3/DJ_OKAWARI_Be_There_feat._Brittany_Campbell_jldz2o.mp3"
+            },
+            {
+                "id": "7",
+                "title": "Everythings Alright",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869059/mp3/DJ_OKAWARI_feat._Kaori_Sawada_Everything_s_Alright_ewvbvt.mp3"
+            },
+            {
+                "id": "8",
+                "title": "Engage Ring",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869056/mp3/DJ_OKAWARI_Emily_Styler_Engage_Ring_xenls3.mp3"
+            },
+            {
+                "id": "9",
+                "title": "After the Wind",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869055/mp3/DJ_OKAWARI_After_the_Wind_eszhnd.mp3"
+            },
+            {
+                "id": "10",
+                "title": "Move It",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869055/mp3/DJ_OKAWARI_Emily_Styler_Move_It_pex9zi.mp3"
+            },
+            {
+                "id": "11",
+                "title": "Over The Rain",
+                "artists": "DJ OKAWARI",
+                "albumId": 6,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655869050/mp3/DJ_OKAWARI_Emily_Styler_Over_The_Rain_toclu9.mp3"
+            }
+        ]
+    },
+    {
+        "id": "7",
+        "album": "Riot music colletion",
+        "artists": ["Trivo"],
+        "thumbnail":
+            "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655871559/KDA_THE_BADDEST_iulg5e.jpg",
+        "playList": [
+            {
+                "id": "1",
+                "title": "Take Over",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871738/mp3/Take_Over_ft._Jeremy_McKinnon_A_Day_To_Remember_MAX_Henry___Worlds_2020_-_League_of_Legends_x8vpdd.mp3"
+            },
+            {
+                "id": "2",
+                "title": "RISE",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871735/mp3/RISE_ft._The_Glitch_Mob_Mako_and_The_Word_Alive___Worlds_2018_-_League_of_Legends_u3jp1b.mp3"
+            },
+            {
+                "id": "3",
+                "title": "GIANTS",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871735/mp3/True_Damage_-_GIANTS_ft._Becky_G_Keke_Palmer_SOYEON_DUCKWRTH_Thutmose___League_of_Legends_shcsa0.mp3"
+            },
+            {
+                "id": "4",
+                "title": "The_Call",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871734/mp3/The_Call___Season_2022_Cinematic_-_League_of_Legends_ft._2WEI_Louis_Leibfried_and_Edda_Hayes_p13buj.mp3"
+            },
+            {
+                "id": "5",
+                "title": "POP STARS",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871725/mp3/K_DA_-_POP_STARS_ft._Madison_Beer_G_I-DLE_Jaira_Burns___Music_Video_-_League_of_Legends_tc88so.mp3"
+            },
+            {
+                "id": "6",
+                "title": "Opening de Arcane",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871725/mp3/Opening_de_Arcane_2021__League_of_Legends_nspfpc.mp3"
+            },
+            {
+                "id": "7",
+                "title": "VILLAIN",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871723/mp3/K_DA_-_VILLAIN_ft._Madison_Beer_and_Kim_Petras_Official_Concept_Video_-_Starring_Evelynn_jibozj.mp3"
+            },
+            {
+                "id": "8",
+                "title": "MORE",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871722/mp3/K_DA_-_MORE_ft._Madison_Beer_G_I-DLE_Lexie_Liu_Jaira_Burns_Seraphine_Official_Music_Video_zebhuo.mp3"
+            },
+            {
+                "id": "9",
+                "title": "THE BADDEST",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871721/mp3/K_DA_-_THE_BADDEST_ft._G_I-DLE_Bea_Miller_Wolftyla_Official_Lyric_Video___League_of_Legends_dxhcda.mp3"
+            },
+            {
+                "id": "10",
+                "title": "Awaken",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871720/mp3/Awaken___Season_2019_Cinematic_-_League_of_Legends_ft._Valerie_Broussard_lfukjv.mp3"
+            },
+            {
+                "id": "11",
+                "title": "Playground",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871719/mp3/Bea_Miller_-_Playground___Arcane_League_of_Legends___Riot_Games_Music_hqf029.mp3"
+            },
+            {
+                "id": "12",
+                "title": "Die For You",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871713/mp3/Die_For_You_-_Zedd_Remix___Official_Audio_Visualizer___VALORANT_Champions_2021_yfkg4h.mp3"
+            },
+            {
+                "id": "13",
+                "title": "DRUM GO DUM",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871712/mp3/K_DA_-_DRUM_GO_DUM_ft._Aluna_Wolftyla_Bekuh_BOOM_Official_Concept_Video_-_Starring_Bailey_Sok_ktb8ha.mp3"
+            },
+            {
+                "id": "14",
+                "title": "Denzel_Curry_Gizzle_Bren_Joy",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871710/mp3/Denzel_Curry_Gizzle_Bren_Joy_-_Dynasties_Dystopia___Arcane_League_of_Legends___Riot_Games_Music_ivbyu6.mp3"
+            },
+            {
+                "id": "15",
+                "title": "ILL SHOW YOU",
+                "artists": "Riot game",
+                "albumId": 7,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655871711/mp3/K_DA_-_I_LL_SHOW_YOU_ft._TWICE_Bekuh_BOOM_Annika_Wells_Official_Concept_Video_-_Starring_Ahri_ed0jet.mp3"
+            }
+        ]
+    },
+    {
+        "id": "8",
+        "album": "GAME OST",
+        "artists": ["Trivo"],
+        "thumbnail":
+            "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655870344/HiddenDreams_vsamqj.png",
+        "playList": [
+            {
+                "id": "1",
+                "title": "Hollow Knight OST Hornet",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892814/mp3/Hollow_Knight_OST_-_Hornet_tbp2xk.mp3"
+            },
+            {
+                "id": "2",
+                "title": "DDTank Theme Song",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892782/mp3/DDTank_Theme_Song_iwdvjh.mp3"
+            },
+            {
+                "id": "3",
+                "title": "Cytus Knight of Firmament",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892783/mp3/Cytus_Knight_of_Firmament_%E5%B8%A6%E6%AD%8C%E8%AF%8D_q8b9yp.mp3"
+            },
+            {
+                "id": "4",
+                "title": "Cytus - ChapterK The Queen Lord of Crimson Rose",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892783/mp3/Cytus_-_Chapter_K_-_The_Queen_Lord_of_Crimson_Rose_with_Lyric_ptb4lf.mp3"
+            },
+            {
+                "id": "5",
+                "title": "A Call to Arms Tirion Fordring Warcraft World ofWarcraft",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892787/mp3/A_Call_to_Arms_-_Tirion_Fordring_Warcraft_-_World_of_Warcraft_-_Hearthstone_Theme_bjtukz.mp3"
+            },
+            {
+                "id": "6",
+                "title": "Arknights OST Awaken Specter The Unchained",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892789/mp3/Arknights_OST_Awaken_Specter_The_Unchained___Stultifera_Navis_Theme_-_AKVN_jac0fp.mp3"
+            },
+            {
+                "id": "7",
+                "title": "Deemo Saika",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892790/mp3/Deemo-Saika%E5%BD%A9%E8%8F%AF_nl156p.mp3"
+            },
+            {
+                "id": "8",
+                "title": "Deemo2.0 Kaeru Underground",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892791/mp3/Deemo_2.0_-_Kaeru_Underground_-_Suspenseful_Third_Day_kc1kue.mp3"
+            },
+            {
+                "id": "10",
+                "title": "DeemoM2U Nicode Myosotis",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892791/mp3/Deemo_-_M2U_Nicode_-_Myosotis_%E4%B8%AD%E6%96%87%E5%AD%97%E5%B9%95_aescrq.mp3"
+            },
+            {
+                "id": "11",
+                "title": "DeemoM2U Magnolia",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892796/mp3/Deemo_M2U_-_Magnolia_%E4%B8%AD%E8%8B%B1%E5%AD%97%E5%B9%95_xkyt8x.mp3"
+            },
+            {
+                "id": "12",
+                "title": "Guilty Gear X2 OST A Simple Life",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892801/mp3/Guilty_Gear_X2_OST-_A_Simple_Life_soqciq.mp3"
+            },
+            {
+                "id": "13",
+                "title": "Granblue Fantasy",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892803/mp3/Granblue_Fantasy_Versus_Soundtrack_-_Butterfly_Girl_VS_Narmaya_Homatsumugen_Kochojin_qcbvzv.mp3"
+            },
+            {
+                "id": "14",
+                "title": "Guilty Gear X2 OST Awe of She",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892803/mp3/Guilty_Gear_X2_OST-_Awe_of_She_qqgsje.mp3"
+            },
+            {
+                "id": "15",
+                "title": "Moonlit Breeze",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892808/mp3/Kaedehara_Kazuha_Teaser_OST_EXTENDED_-_Moonlit_Breeze_tnbee_mix___Genshin_Impact_c3ozck.mp3"
+            },
+            {
+                "id": "16",
+                "title": "Dance at Chinju Forest",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892809/mp3/Genshin_Impact_-_Kamisato_Ayaka_Dance_at_Chinju_Forest_4_Version___v2.0_Inazuma_OST_mwwqxq.mp3"
+            },
+            {
+                "id": "17",
+                "title": "Wandering Winds",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892811/mp3/Kazuha_Theme_Music_EXTENDED_-_Wandering_Winds_tnbee_mix___Genshin_Impact_gt8jau.mp3"
+            },
+            {
+                "id": "18",
+                "title": "Driftveil City",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892813/mp3/Driftveil_City_Pok%C3%A9mon_-_Black_White_cqsouu.mp3"
+            },
+            {
+                "id": "19",
+                "title": "Guilty Gear X2 OST Holy Orders Be Just or Be Dead",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892816/mp3/Guilty_Gear_X2_OST-_Holy_Orders_Be_Just_or_Be_Dead_qi6ljx.mp3"
+            },
+            {
+                "id": "20",
+                "title": "Mittsies Vitality",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892822/mp3/Mittsies_-_Vitality_ybpkco.mp3"
+            },
+            {
+                "id": "21",
+                "title": "Mittsies Luminescent",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892822/mp3/Mittsies_-_Luminescent_lyr2cf.mp3"
+            },
+            {
+                "id": "22",
+                "title": "Sweet Sweet Canyon Mario Kart 8 OST",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892824/mp3/Sweet_Sweet_Canyon_-_Mario_Kart_8_OST_umhxa4.mp3"
+            },
+            {
+                "id": "23",
+                "title": "The Witcher 3 OST Steel for Humans",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892829/mp3/The_Witcher_3_OST_-_Steel_for_Humans_Extended_Version_zubkny.mp3"
+            },
+            {
+                "id": "24",
+                "title": "World of Warcraft Soundtrack Echoes of the Past",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892831/mp3/World_of_Warcraft_Soundtrack_-_Echoes_of_the_Past_fui8zn.mp3"
+            },
+            {
+                "id": "25",
+                "title": "Ys VIII Lacrimosa of DANA Great Plains",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892835/mp3/Ys_VIII_-Lacrimosa_of_DANA-_BGM_RIP_-_Great_Plains_-_Pan-Gaia_p2wxgz.mp3"
+            },
+            {
+                "id": "26",
+                "title": "Ys VIII Lacrimosa of DANA Overcome the Rocky Path",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892837/mp3/Ys_VIII_-Lacrimosa_of_DANA-_BGM_RIP_-_Overcome_the_Rocky_Path_lbcf3q.mp3"
+            },
+            {
+                "id": "27",
+                "title": "KOF ALLSTAR OST Valentines",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892844/mp3/KOF_ALLSTAR_OST_Valentines_day_qaumjw.mp3"
+            },
+            {
+                "id": "28",
+                "title": "Ys VIII Lacrimosa of DANA BGM RIP Sunshine Coastline",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892849/mp3/Ys_VIII_-Lacrimosa_of_DANA-_BGM_RIP_-_Sunshine_Coastline_knf0oo.mp3"
+            },
+            {
+                "id": "29",
+                "title": "Undertale OST Heartache",
+                "artists": "Game ost",
+                "albumId": 8,
+                "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892855/mp3/Undertale_OST_-_Heartache_Extended_onltsk.mp3"
+            }
+        ]
+    },
+    {
+        "id": "9",
+        "album": "GAME OST",
+        "artists": ["Trivo"],
+        "thumbnail":
+            "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655870344/HiddenDreams_vsamqj.png",
+        "playList": [
+            {
+                "id": "1",
+                "title": "",
+                "artists": "",
+                "albumId": 9,
+                "src": ""
+            }
+        ]
     }
 ]
