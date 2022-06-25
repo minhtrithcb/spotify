@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Library = () => {
+const createPlayList = () => {
 	return (
 		<div className='p-4 text-white'>
-			<p>Libary page</p>
+			<p>Create PlayList page</p>
 		</div>
 	)
 }
 
-export default Library
+export default createPlayList

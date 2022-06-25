@@ -58,12 +58,13 @@ const Dropdown = ({
 	)
 }
 
-export const DropdownItem = ({ style, children }) => {
+export const DropdownItem = ({ style, children, ...rest }) => {
 	return (
 		<li
 			className={`p-2  duration-300 rounded-md hover:bg-slate-600	
             flex items-center ${style}`}
 			onClick={(e) => e.stopPropagation()}
+			{...rest}
 		>
 			{children}
 		</li>

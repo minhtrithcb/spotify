@@ -3,6 +3,7 @@
         "id": "1",
         "album": "US UK Playlist",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128483/mp3/pexels-vishnu-r-nair-1105666_qozo73.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655611571/usuk_npm7ou.jpg",
         "playList": [
@@ -61,6 +62,7 @@
         "id": "2",
         "album": "TikTok Remix",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128484/mp3/tiktok_jxtvfo.png",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655611572/tktk_obo24y.png",
         "playList": [
@@ -105,6 +107,7 @@
         "id": "3",
         "album": "JPOP MUSIC",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128483/mp3/jp_hc9erd.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655611573/region_jp_large_aaqzy8.jpg",
         "playList": [
@@ -135,6 +138,7 @@
         "id": "4",
         "album": "'The Sing' Songtrack",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128485/mp3/sing_tq6mbk.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655611575/sing_qlrftw.jpg",
         "playList": [
@@ -193,6 +197,7 @@
         "id": "5",
         "album": "EPIC Music",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128484/mp3/epic_iy7hxs.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655611573/epic_dfpk5v.webp",
         "playList": [
@@ -266,6 +271,7 @@
         "id": "6",
         "album": "DJ OKAWARI OFFICIAL",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128487/mp3/djok_g4hgsy.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655867931/avatars-000138404358-sdp2xr-t500x500_jxiros.jpg",
         "playList": [
@@ -352,6 +358,7 @@
         "id": "7",
         "album": "Riot music colletion",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128483/mp3/kda_nunwme.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655871559/KDA_THE_BADDEST_iulg5e.jpg",
         "playList": [
@@ -466,6 +473,7 @@
         "id": "8",
         "album": "GAME OST",
         "artists": ["Trivo"],
+        "banner": "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1656128483/mp3/hk_dsxmwd.jpg",
         "thumbnail":
             "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655870344/HiddenDreams_vsamqj.png",
         "playList": [
@@ -664,22 +672,6 @@
                 "artists": "Game ost",
                 "albumId": 8,
                 "src": "https://res.cloudinary.com/dsfwvhgtl/video/upload/v1655892855/mp3/Undertale_OST_-_Heartache_Extended_onltsk.mp3"
-            }
-        ]
-    },
-    {
-        "id": "9",
-        "album": "GAME OST",
-        "artists": ["Trivo"],
-        "thumbnail":
-            "https://res.cloudinary.com/dsfwvhgtl/image/upload/v1655870344/HiddenDreams_vsamqj.png",
-        "playList": [
-            {
-                "id": "1",
-                "title": "",
-                "artists": "",
-                "albumId": 9,
-                "src": ""
             }
         ]
     }
