@@ -3,6 +3,7 @@
 ### Mô tả
 
 Dự án Spotify viết bằng reactjs, tailwindcss
+Link Demo: https://minhtrispotify.tk/
 
 ### Cài đặt
 
